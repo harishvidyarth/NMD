@@ -1,0 +1,9 @@
+# Our security address
+Contact: mailto:security@example.com
+Contact: tel:+91-XXX-XXX-XXXX
+Encryption: https://example.com/pgp-key.txt
+Acknowledgments: https://example.com/hall-of-fame
+Policy: https://example.com/security-policy.html
+Preferred-Languages: en, hi
+Canonical: https://example.com/.well-known/security.txt
+Expires: 2026-12-31T23:59:59.000Z
