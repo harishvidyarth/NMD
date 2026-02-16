@@ -1,5 +1,4 @@
-/* Apple-Inspired Minimalist Design */
-
+/* Apple-Inspired Minimalist Design - Updated */
 /* CSS Variables */
 :root {
     --color-bg: #ffffff;
@@ -21,6 +20,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    /* Remove blue highlight on tap/click */
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -30,6 +31,21 @@ body {
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+/* Remove focus outline that creates blue box */
+a:focus, button:focus, input:focus, select:focus, textarea:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+a:focus-visible, button:focus-visible {
+    outline: none !important;
+}
+
+/* Remove blue background on active/visited links */
+a:active, a:visited {
+    background-color: transparent !important;
 }
 
 /* Typography */
@@ -48,6 +64,7 @@ h2 {
     font-size: clamp(2rem, 4vw, 3rem);
     line-height: 1.15;
     margin-bottom: var(--spacing-sm);
+    text-align: center;
 }
 
 h3 {
@@ -75,20 +92,37 @@ header {
 }
 
 .header-container {
-    max-width: 980px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 var(--spacing-md);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 48px;
+    min-height: 48px;
+    gap: 1rem;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+.logo-image {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    flex-shrink: 0;
 }
 
 .company-name {
-    font-size: 1.25rem;
+    font-size: 1.125rem;
     font-weight: 600;
     color: var(--color-text);
     letter-spacing: -0.01em;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .contact-header {
@@ -106,18 +140,22 @@ header {
 nav {
     background: #fbfbfd;
     border-bottom: 1px solid var(--color-border);
+    position: relative;
 }
 
 nav ul {
-    max-width: 980px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 var(--spacing-md);
     list-style: none;
     display: flex;
     justify-content: center;
     gap: var(--spacing-md);
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    position: relative;
+}
+
+nav ul li {
+    position: relative;
 }
 
 nav ul li a {
@@ -129,10 +167,49 @@ nav ul li a {
     white-space: nowrap;
     transition: var(--transition);
     font-weight: 400;
+    position: relative;
+    background: transparent !important;
 }
 
 nav ul li a:hover {
     color: var(--color-text);
+    background: transparent !important;
+}
+
+nav ul li a:focus {
+    outline: none !important;
+    background: transparent !important;
+}
+
+nav ul li a:active {
+    background: transparent !important;
+}
+
+/* Active page indicator line */
+nav ul li a.active {
+    color: var(--color-text);
+}
+
+nav ul li a.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--color-accent);
+    border-radius: 2px 2px 0 0;
+}
+
+/* Mobile Navigation Toggle */
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--color-text);
+    cursor: pointer;
+    padding: 0.5rem;
 }
 
 /* Hero Section */
@@ -204,7 +281,7 @@ nav ul li a:hover {
 
 /* Main Content */
 main {
-    max-width: 980px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 var(--spacing-md);
 }
@@ -248,70 +325,6 @@ section:last-child {
     color: var(--color-text-secondary);
 }
 
-/* Calculator Section */
-.calculator-section {
-    background: var(--color-bg);
-    text-align: center;
-    padding: var(--spacing-xl) var(--spacing-md);
-}
-
-.calculator-section h2 {
-    margin-bottom: var(--spacing-sm);
-}
-
-.calculator-section h4 {
-    font-size: 1rem;
-    font-weight: 400;
-    color: var(--color-text-secondary);
-    margin-bottom: var(--spacing-lg);
-}
-
-.calculator-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: var(--spacing-sm);
-    max-width: 980px;
-    margin: 0 auto;
-}
-
-.calculator-card {
-    background: white;
-    padding: var(--spacing-md);
-    border: 1px solid var(--color-border);
-    border-radius: 18px;
-    text-align: center;
-    transition: var(--transition);
-}
-
-.calculator-card:hover {
-    border-color: var(--color-accent);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-
-.calculator-card h4 {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--color-text);
-    margin-bottom: var(--spacing-sm);
-}
-
-.calculator-card .btn {
-    margin-top: var(--spacing-sm);
-    font-size: 0.875rem;
-    padding: 0.5rem 1.25rem;
-}
-
-/* About Section */
-.about-section {
-    text-align: center;
-    padding: var(--spacing-xl) var(--spacing-md);
-}
-
-.about-content {
-    max-width: 700px;
-    margin: 0 auto;
-}
-
 /* Services Grid */
 .services-grid {
     display: grid;
@@ -326,6 +339,8 @@ section:last-child {
     border: 1px solid var(--color-border);
     border-radius: 18px;
     transition: var(--transition);
+    display: flex;
+    flex-direction: column;
 }
 
 .service-card:hover {
@@ -337,11 +352,25 @@ section:last-child {
     font-size: 1.25rem;
     color: var(--color-text);
     margin-bottom: var(--spacing-sm);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
 }
+
+.service-card .bank-logo {
+    width: 100%;             
+    height: 60px;            
+    object-fit: contain;    
+    object-position: left;   
+    margin-bottom: 1.5rem;  
+    display: block;
+}
+
 
 .service-card p {
     font-size: 1rem;
     color: var(--color-text-secondary);
+    flex-grow: 1;
 }
 
 /* Forms */
@@ -374,7 +403,6 @@ input, select, textarea {
 }
 
 input:focus, select:focus, textarea:focus {
-    outline: none;
     border-color: var(--color-accent);
     box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
 }
@@ -401,21 +429,6 @@ button[type="submit"]:hover {
     background: var(--color-accent-hover);
 }
 
-/* Quote Result */
-#quote-result {
-    background: #f5f5f7;
-    padding: var(--spacing-lg);
-    border-radius: 18px;
-    text-align: center;
-    margin-top: var(--spacing-lg);
-    display: none;
-}
-
-#quote-result h3 {
-    font-size: 1.25rem;
-    margin-bottom: var(--spacing-sm);
-}
-
 /* Video Gallery */
 .video-grid {
     display: grid;
@@ -431,7 +444,7 @@ footer {
 }
 
 .footer-content {
-    max-width: 980px;
+    max-width: 1200px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -480,52 +493,64 @@ footer {
     font-size: 0.75rem;
 }
 
-/* Subscribe Form */
+/* Subscribe Form - Fixed */
 .subscribe-form {
     display: flex;
     gap: var(--spacing-xs);
+    flex-direction: column;
 }
 
 .subscribe-form input {
     flex: 1;
     font-size: 0.875rem;
-    padding: 0.625rem;
+    padding: 0.75rem;
+    width: 100%;
+    min-width: 250px;
 }
 
 .subscribe-form button {
     background: var(--color-text);
     color: white;
-    padding: 0.625rem 1rem;
+    padding: 0.75rem 1rem;
     border: none;
     border-radius: 12px;
     font-size: 0.875rem;
     cursor: pointer;
     transition: var(--transition);
     white-space: nowrap;
+    width: 100%;
 }
 
 .subscribe-form button:hover {
     background: var(--color-accent);
 }
 
-/* Mobile Navigation */
-.nav-toggle {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    color: var(--color-text);
-    cursor: pointer;
+/* About Section */
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: left;
 }
 
-/* Error Messages */
-.error-message {
-    color: #d60000;
-    font-size: 0.875rem;
-    margin-top: 0.25rem;
+.about-content h3 {
+    text-align: left;
+}
+
+.about-content ul {
+    text-align: left;
 }
 
 /* Responsive Design */
+@media (min-width: 769px) {
+    .subscribe-form {
+        flex-direction: row;
+    }
+    
+    .subscribe-form button {
+        width: auto;
+    }
+}
+
 @media (max-width: 768px) {
     :root {
         --spacing-lg: 3rem;
@@ -533,24 +558,74 @@ footer {
     }
 
     .header-container {
-        padding: 0 var(--spacing-sm);
+        padding: 0.75rem var(--spacing-sm);
+        flex-wrap: wrap;
+    }
+
+    .logo-container {
+        order: 1;
+    }
+
+    .nav-toggle {
+        display: block;
+        order: 2;
+    }
+
+    .contact-header {
+        order: 3;
+        width: 100%;
+        text-align: center;
+        padding-top: 0.5rem;
+        font-size: 0.75rem;
     }
 
     .company-name {
         font-size: 1.125rem;
     }
 
-    .contact-header {
-        font-size: 0.75rem;
+    /* Mobile Menu */
+    nav {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: saturate(180%) blur(20px);
     }
 
     nav ul {
-        padding: 0 var(--spacing-sm);
-        gap: var(--spacing-sm);
+        display: none;
+        flex-direction: column;
+        padding: var(--spacing-sm);
+        gap: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+    }
+
+    nav ul.open {
+        display: flex;
+        max-height: 500px;
+    }
+
+    nav ul li {
+        width: 100%;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    nav ul li:last-child {
+        border-bottom: none;
     }
 
     nav ul li a {
-        font-size: 0.8125rem;
+        padding: 1rem;
+        font-size: 0.9375rem;
+        display: block;
+    }
+
+    nav ul li a.active::after {
+        left: 1rem;
+        right: auto;
+        width: 3px;
+        height: 100%;
+        top: 0;
+        bottom: 0;
     }
 
     .hero {
@@ -568,15 +643,6 @@ footer {
 
     section {
         padding: var(--spacing-lg) 0;
-    }
-
-    .calculator-section,
-    .about-section {
-        padding: var(--spacing-lg) var(--spacing-sm);
-    }
-
-    .calculator-grid {
-        grid-template-columns: 1fr;
     }
 
     .services-grid {
@@ -609,37 +675,36 @@ footer {
     .partner-logos {
         gap: var(--spacing-md);
     }
+
+    .logo-image {
+        width: 32px;
+        height: 32px;
+    }
 }
 
 /* Smooth Animations */
 @media (prefers-reduced-motion: no-preference) {
-    .service-card,
-    .calculator-card {
+    .service-card {
         animation: fadeInUp 0.6s ease-out backwards;
     }
 
-    .service-card:nth-child(1),
-    .calculator-card:nth-child(1) {
+    .service-card:nth-child(1) {
         animation-delay: 0.1s;
     }
 
-    .service-card:nth-child(2),
-    .calculator-card:nth-child(2) {
+    .service-card:nth-child(2) {
         animation-delay: 0.2s;
     }
 
-    .service-card:nth-child(3),
-    .calculator-card:nth-child(3) {
+    .service-card:nth-child(3) {
         animation-delay: 0.3s;
     }
 
-    .service-card:nth-child(4),
-    .calculator-card:nth-child(4) {
+    .service-card:nth-child(4) {
         animation-delay: 0.4s;
     }
 
-    .service-card:nth-child(5),
-    .calculator-card:nth-child(5) {
+    .service-card:nth-child(5) {
         animation-delay: 0.5s;
     }
 
