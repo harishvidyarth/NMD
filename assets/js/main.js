@@ -26,10 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         });
     });
@@ -61,7 +58,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         inputs.forEach(input => {
             let errorSpan = input.parentElement.querySelector('.error-message');
-            
             if (!errorSpan) {
                 errorSpan = document.createElement('span');
                 errorSpan.className = 'error-message';
@@ -89,7 +85,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 input.style.borderColor = '';
             }
         });
-        
         return isValid;
     }
 
@@ -102,11 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Animate elements on scroll
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
     const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -116,7 +107,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, observerOptions);
 
-    // Observe service cards and other elements
     document.querySelectorAll('.service-card').forEach(card => {
         card.style.opacity = '0';
         card.style.transform = 'translateY(20px)';
@@ -124,63 +114,25 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(card);
     });
 
-    // Newsletter subscription with email handling
+    // Newsletter subscription
     const subscribeForms = document.querySelectorAll('.subscribe-form');
     subscribeForms.forEach(subscribeForm => {
         subscribeForm.addEventListener('submit', function(e) {
             e.preventDefault();
             const emailInput = this.querySelector('input[type="email"]');
-            
             if (emailInput && validateEmail(emailInput.value)) {
-                const email = emailInput.value;
-                
-                // Here you can integrate with your email service
-                // For now, we'll show a success message
-                
-                // Create mailto link (this will open user's email client)
-                const mailtoLink = `mailto:nmdassociates.insurancebanking@gmail.com?subject=Newsletter Subscription&body=Please add ${email} to your newsletter list.`;
-                
-                // Show success message
                 const button = this.querySelector('button');
                 const originalText = button.textContent;
                 button.textContent = 'Subscribed!';
                 button.style.background = '#10b981';
-                
-                // Optional: Send email automatically (opens email client)
-                // window.location.href = mailtoLink;
-                
-                // You can also integrate with services like:
-                // - EmailJS
-                // - Formspree
-                // - Your own backend API
-                
-                // Example with fetch to your backend:
-                /*
-                fetch('/api/subscribe', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ email: email })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Success:', data);
-                });
-                */
-                
                 emailInput.value = '';
-                
                 setTimeout(() => {
                     button.textContent = originalText;
                     button.style.background = '';
                 }, 3000);
             } else {
-                // Show error
-                const emailInput = this.querySelector('input[type="email"]');
                 emailInput.style.borderColor = '#ef4444';
                 emailInput.placeholder = 'Please enter a valid email';
-                
                 setTimeout(() => {
                     emailInput.style.borderColor = '';
                     emailInput.placeholder = 'Your email';
@@ -194,29 +146,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            
             if (validateForm(this)) {
-                const formData = {
-                    name: document.getElementById('name').value,
-                    email: document.getElementById('email').value,
-                    phone: document.getElementById('phone').value,
-                    subject: document.getElementById('subject').value,
-                    message: document.getElementById('message').value
-                };
-                
-                // Create mailto link with form data
-                const mailtoLink = `mailto:nmdassociates.insurancebanking@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\n\nMessage:\n${formData.message}`)}`;
-                
-                // Show success message
                 alert('Thank you for your message! We will get back to you soon.');
-                
-                // Optional: Open email client
-                // window.location.href = mailtoLink;
-                
-                // Reset form
                 this.reset();
-                
-                // Clear error messages
                 const errorSpans = this.querySelectorAll('.error-message');
                 errorSpans.forEach(span => span.textContent = '');
             }
