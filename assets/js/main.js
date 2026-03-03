@@ -42,15 +42,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Form validation
-    const forms = document.querySelectorAll('form:not(.subscribe-form)');
-    forms.forEach(form => {
-        form.addEventListener('submit', function(e) {
-            if (!validateForm(this)) {
-                e.preventDefault();
-            }
-        });
-    });
+    // Form validation helper
+    function validateEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function validatePhone(phone) {
+        return /^[\d\s\-\+\(\)]{10,15}$/.test(phone);
+    }
 
     function validateForm(form) {
         let isValid = true;
@@ -88,12 +87,72 @@ document.addEventListener('DOMContentLoaded', function() {
         return isValid;
     }
 
-    function validateEmail(email) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    }
+    // =====================
+    // SUBSCRIBE FORMS (all pages)
+    // =====================
+    document.querySelectorAll('.subscribe-form').forEach(function(subscribeForm) {
+        subscribeForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
 
-    function validatePhone(phone) {
-        return /^[\d\s\-\+\(\)]{10,15}$/.test(phone);
+            const emailInput = this.querySelector('input[type="email"]');
+            const button = this.querySelector('button');
+
+            if (!emailInput || !button) return;
+
+            if (validateEmail(emailInput.value.trim())) {
+                const originalText = button.textContent;
+                const originalBg = button.style.background;
+
+                button.textContent = '✓ Subscribed!';
+                button.style.background = '#10b981';
+                button.disabled = true;
+                emailInput.value = '';
+                emailInput.style.borderColor = '';
+
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = originalBg;
+                    button.disabled = false;
+                }, 3000);
+            } else {
+                emailInput.style.borderColor = '#ef4444';
+                const prev = emailInput.placeholder;
+                emailInput.placeholder = 'Please enter a valid email';
+                setTimeout(() => {
+                    emailInput.style.borderColor = '';
+                    emailInput.placeholder = prev;
+                }, 3000);
+            }
+        });
+    });
+
+    // Contact form submission
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (validateForm(this)) {
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalText = submitBtn ? submitBtn.textContent : '';
+                if (submitBtn) {
+                    submitBtn.textContent = '✓ Message Sent!';
+                    submitBtn.style.background = '#10b981';
+                    submitBtn.disabled = true;
+                }
+                this.reset();
+                const errorSpans = this.querySelectorAll('.error-message');
+                errorSpans.forEach(span => span.textContent = '');
+
+                setTimeout(() => {
+                    if (submitBtn) {
+                        submitBtn.textContent = originalText;
+                        submitBtn.style.background = '';
+                        submitBtn.disabled = false;
+                    }
+                }, 3500);
+            }
+        });
     }
 
     // Animate elements on scroll
@@ -113,45 +172,4 @@ document.addEventListener('DOMContentLoaded', function() {
         card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(card);
     });
-
-    // Newsletter subscription
-    const subscribeForms = document.querySelectorAll('.subscribe-form');
-    subscribeForms.forEach(subscribeForm => {
-        subscribeForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const emailInput = this.querySelector('input[type="email"]');
-            if (emailInput && validateEmail(emailInput.value)) {
-                const button = this.querySelector('button');
-                const originalText = button.textContent;
-                button.textContent = 'Subscribed!';
-                button.style.background = '#10b981';
-                emailInput.value = '';
-                setTimeout(() => {
-                    button.textContent = originalText;
-                    button.style.background = '';
-                }, 3000);
-            } else {
-                emailInput.style.borderColor = '#ef4444';
-                emailInput.placeholder = 'Please enter a valid email';
-                setTimeout(() => {
-                    emailInput.style.borderColor = '';
-                    emailInput.placeholder = 'Your email';
-                }, 3000);
-            }
-        });
-    });
-
-    // Contact form submission
-    const contactForm = document.getElementById('contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            if (validateForm(this)) {
-                alert('Thank you for your message! We will get back to you soon.');
-                this.reset();
-                const errorSpans = this.querySelectorAll('.error-message');
-                errorSpans.forEach(span => span.textContent = '');
-            }
-        });
-    }
 });
