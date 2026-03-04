@@ -1,175 +1,82 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Mobile Navigation Toggle
-    const navToggle = document.querySelector('.nav-toggle');
-    const navMenu = document.querySelector('nav ul');
-    
-    if (navToggle && navMenu) {
-        navToggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            navMenu.classList.toggle('open');
-        });
-    }
-
-    // Close mobile menu when clicking on a link
-    const navLinks = document.querySelectorAll('nav ul li a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            if (window.innerWidth <= 768 && navMenu) {
-                navMenu.classList.remove('open');
-            }
-        });
+document.addEventListener('DOMContentLoaded', function () {
+  var parts = ['nmdassociates', '.', 'insurancebanking', '@', 'gmail', '.', 'com'];
+  var E = parts.join('');
+  document.querySelectorAll('[data-email]').forEach(function(el) {
+    if (el.tagName.toLowerCase() === 'a') { el.href = 'mailto:' + E; }
+    if (el.hasAttribute('data-email-text')) { el.textContent = E; }
+  });
+  var toggle = document.querySelector('.nav-toggle');
+  var navUl = document.querySelector('.nav-ul');
+  if (toggle && navUl) {
+    toggle.addEventListener('click', function() { navUl.classList.toggle('open'); });
+    document.querySelectorAll('.nav-ul a').forEach(function(a) {
+      a.addEventListener('click', function() { if (window.innerWidth <= 768) navUl.classList.remove('open'); });
     });
-
-    // Smooth Scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        });
+  }
+  var page = window.location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.nav-ul a').forEach(function(a) {
+    a.classList.toggle('active', a.getAttribute('href') === page);
+  });
+  document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      e.preventDefault();
+      var t = document.querySelector(a.getAttribute('href'));
+      if (t) t.scrollIntoView({ behavior: 'smooth' });
     });
-
-    // Set active nav link based on current page
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    navLinks.forEach(link => {
-        const linkPage = link.getAttribute('href');
-        if (linkPage === currentPage) {
-            link.classList.add('active');
-        } else {
-            link.classList.remove('active');
-        }
+  });
+  function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+  function isPhone(v) { return /^[\d\s\-\+\(\)]{10,15}$/.test(v); }
+  function validateForm(form) {
+    var ok = true;
+    form.querySelectorAll('input[required],textarea[required],select[required]').forEach(function(inp) {
+      var err = inp.parentElement.querySelector('.field-err');
+      if (!err) {
+        err = document.createElement('span'); err.className = 'field-err';
+        err.style.cssText = 'color:#ef4444;font-size:0.78rem;margin-top:0.25rem;display:block;';
+        inp.parentElement.appendChild(err);
+      }
+      if (!inp.value.trim()) { err.textContent='Required.'; inp.style.borderColor='#ef4444'; ok=false; }
+      else if (inp.type==='email' && !isEmail(inp.value)) { err.textContent='Valid email required.'; inp.style.borderColor='#ef4444'; ok=false; }
+      else if (inp.type==='tel' && !isPhone(inp.value)) { err.textContent='Valid phone required.'; inp.style.borderColor='#ef4444'; ok=false; }
+      else { err.textContent=''; inp.style.borderColor=''; }
     });
-
-    // Form validation helper
-    function validateEmail(email) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    }
-
-    function validatePhone(phone) {
-        return /^[\d\s\-\+\(\)]{10,15}$/.test(phone);
-    }
-
-    function validateForm(form) {
-        let isValid = true;
-        const inputs = form.querySelectorAll('input[required], textarea[required], select[required]');
-        
-        inputs.forEach(input => {
-            let errorSpan = input.parentElement.querySelector('.error-message');
-            if (!errorSpan) {
-                errorSpan = document.createElement('span');
-                errorSpan.className = 'error-message';
-                errorSpan.style.color = '#ef4444';
-                errorSpan.style.fontSize = '0.85rem';
-                errorSpan.style.marginTop = '0.3rem';
-                errorSpan.style.display = 'block';
-                input.parentElement.appendChild(errorSpan);
-            }
-            
-            if (!input.value.trim()) {
-                errorSpan.textContent = 'This field is required';
-                input.style.borderColor = '#ef4444';
-                isValid = false;
-            } else if (input.type === 'email' && !validateEmail(input.value)) {
-                errorSpan.textContent = 'Please enter a valid email address';
-                input.style.borderColor = '#ef4444';
-                isValid = false;
-            } else if (input.type === 'tel' && !validatePhone(input.value)) {
-                errorSpan.textContent = 'Please enter a valid phone number';
-                input.style.borderColor = '#ef4444';
-                isValid = false;
-            } else {
-                errorSpan.textContent = '';
-                input.style.borderColor = '';
-            }
-        });
-        return isValid;
-    }
-
-    // =====================
-    // SUBSCRIBE FORMS (all pages)
-    // =====================
-    document.querySelectorAll('.subscribe-form').forEach(function(subscribeForm) {
-        subscribeForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            const emailInput = this.querySelector('input[type="email"]');
-            const button = this.querySelector('button');
-
-            if (!emailInput || !button) return;
-
-            if (validateEmail(emailInput.value.trim())) {
-                const originalText = button.textContent;
-                const originalBg = button.style.background;
-
-                button.textContent = '✓ Subscribed!';
-                button.style.background = '#10b981';
-                button.disabled = true;
-                emailInput.value = '';
-                emailInput.style.borderColor = '';
-
-                setTimeout(() => {
-                    button.textContent = originalText;
-                    button.style.background = originalBg;
-                    button.disabled = false;
-                }, 3000);
-            } else {
-                emailInput.style.borderColor = '#ef4444';
-                const prev = emailInput.placeholder;
-                emailInput.placeholder = 'Please enter a valid email';
-                setTimeout(() => {
-                    emailInput.style.borderColor = '';
-                    emailInput.placeholder = prev;
-                }, 3000);
-            }
-        });
+    return ok;
+  }
+  document.querySelectorAll('.sub-form').forEach(function(form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault(); e.stopPropagation();
+      var inp=form.querySelector('input[type="email"]'), btn=form.querySelector('button');
+      if (!inp||!btn) return;
+      if (isEmail(inp.value.trim())) {
+        var orig=btn.textContent;
+        btn.textContent='\u2713 Subscribed!'; btn.style.background='#10b981'; btn.disabled=true;
+        inp.value=''; inp.style.borderColor='';
+        setTimeout(function(){ btn.textContent=orig; btn.style.background=''; btn.disabled=false; },3000);
+      } else {
+        inp.style.borderColor='#ef4444';
+        var ph=inp.placeholder; inp.placeholder='Enter a valid email';
+        setTimeout(function(){ inp.style.borderColor=''; inp.placeholder=ph; },3000);
+      }
     });
-
-    // Contact form submission
-    const contactForm = document.getElementById('contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            if (validateForm(this)) {
-                const submitBtn = this.querySelector('button[type="submit"]');
-                const originalText = submitBtn ? submitBtn.textContent : '';
-                if (submitBtn) {
-                    submitBtn.textContent = '✓ Message Sent!';
-                    submitBtn.style.background = '#10b981';
-                    submitBtn.disabled = true;
-                }
-                this.reset();
-                const errorSpans = this.querySelectorAll('.error-message');
-                errorSpans.forEach(span => span.textContent = '');
-
-                setTimeout(() => {
-                    if (submitBtn) {
-                        submitBtn.textContent = originalText;
-                        submitBtn.style.background = '';
-                        submitBtn.disabled = false;
-                    }
-                }, 3500);
-            }
-        });
-    }
-
-    // Animate elements on scroll
-    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-
-    document.querySelectorAll('.service-card').forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px)';
-        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(card);
+  });
+  var cf = document.getElementById('contact-form');
+  if (cf) {
+    cf.addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (validateForm(cf)) {
+        var btn=cf.querySelector('[type="submit"]'), orig=btn?btn.textContent:'';
+        if (btn){ btn.textContent='\u2713 Sent!'; btn.style.background='#10b981'; btn.disabled=true; }
+        cf.reset();
+        cf.querySelectorAll('.field-err').forEach(function(s){ s.textContent=''; });
+        setTimeout(function(){ if(btn){ btn.textContent=orig; btn.style.background=''; btn.disabled=false; } },3500);
+      }
     });
+  }
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){ if(en.isIntersecting){ en.target.style.opacity='1'; en.target.style.transform='translateY(0)'; } });
+  },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.service-card,.feat-card,.cc,.vid-card').forEach(function(el){
+    el.style.cssText+='opacity:0;transform:translateY(18px);transition:opacity 0.55s ease,transform 0.55s ease;';
+    obs.observe(el);
+  });
 });
