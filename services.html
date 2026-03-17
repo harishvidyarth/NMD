@@ -3,24 +3,108 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Our Services - NMD Associates</title>
-  <meta name="description" content="NMD Associates - Trusted insurance and banking services in India.">
+  <title>Insurance Services – NMD Associates | Health, Life &amp; Motor Insurance</title>
+  <meta name="description" content="Explore NMD Associates' insurance services including Health Insurance, Life Insurance, Motor Insurance and Insurance Advisory across Tamil Nadu.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="assets/css/style-apple.css">
+  <link rel="stylesheet" href="assets/css/style-apple.css?v=3">
+
+
+<style>
+/* ── PARTNER CARDS — Pure CSS, no images ── */
+.partners-section { background: #f9f8f6 !important; padding: 0 !important; border-top: 1px solid rgba(2,18,65,0.08); border-bottom: 1px solid rgba(2,18,65,0.08); }
+.partners-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 2rem; text-align: center; }
+.partners-inner .sec-label { color: #C9A84C; }
+.partners-inner h2 { color: #021241; margin-bottom: 0.65rem; }
+.partners-inner > p { color: #7a82a0; margin-bottom: 3rem; }
+.partners-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+.partner-card {
+  background: #ffffff !important;
+  border: 1px solid rgba(2,18,65,0.1) !important;
+  border-radius: 12px !important;
+  padding: 1.75rem 1.25rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.85rem !important;
+  min-height: 140px !important;
+  transition: all 0.28s ease !important;
+  box-shadow: 0 2px 8px rgba(2,18,65,0.06) !important;
+}
+.partner-card:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 8px 24px rgba(2,18,65,0.12) !important;
+  border-color: rgba(201,168,76,0.35) !important;
+}
+
+.partner-logo-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 80px;
+  padding: 12px 16px;
+}
+.partner-logo-badge img {
+  max-width: 100%;
+  max-height: 60px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+.plb-text {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+.plb-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.55rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.8);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+.partner-name {
+  font-size: 0.65rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  color: #7a82a0 !important;
+  text-align: center !important;
+}
+.partner-card:hover .partner-name { color: #021241 !important; }
+@media (max-width: 768px) {
+  .partners-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
+</style>
 </head>
 <body>
+
 <header>
   <div class="hdr-top">
     <a href="index.html" class="logo">
       <img src="assets/images/nmd-logo.svg" alt="NMD Associates Logo">
       <span class="logo-name">NMD Associates</span>
     </a>
-    <button class="nav-toggle" aria-label="Toggle navigation">&#9776;</button>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
     <div class="hdr-contacts">
       <a class="hdr-link" data-email data-email-text href="#">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-        <span class="hdr-link-full" data-email data-email-text></span>
         <span class="hdr-link-short">Mail Us</span>
       </a>
       <div class="hdr-sep"></div>
@@ -33,187 +117,162 @@
   </div>
   <nav>
     <ul class="nav-ul">
-        <li><a href="index.html" >Home</a></li>
-        <li><a href="about-us.html" >About Us</a></li>
-        <li><a href="services.html" class='active'>Services</a></li>
-        <li><a href="video-gallery.html" >Video Gallery</a></li>
-        <li><a href="contact.html" >Contact</a></li>
-        <li><a href="privacy-policy.html" >Privacy Policy</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about-us.html">About Us</a></li>
+      <li><a href="services.html" class="active">Services</a></li>
+      <li><a href="video-gallery.html">Video Gallery</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="privacy-policy.html">Privacy Policy</a></li>
     </ul>
   </nav>
 </header>
+
 <main>
   <section class="page-hero">
     <div class="sec-label">What We Offer</div>
-    <h1>Our Services</h1>
-    <p>Comprehensive insurance and banking solutions — covering every stage of life with India's best providers.</p>
+    <h1>Insurance Services</h1>
+    <p>Comprehensive insurance solutions tailored to protect you, your family, and your assets — backed by India's most trusted insurers.</p>
   </section>
 
   <section>
-    <!-- LIFE INSURANCE -->
-    <div class="svc-group">
-      <div class="svc-group-title"><span></span>Life Insurance Partners</div>
-      <div class="services-grid">
-        <div class="service-card">
-          <div class="svc-logo"><img src="assets/images/bank-logos/hdfc-life.svg" alt="HDFC Life"></div>
-          <h4>HDFC Life</h4>
-          <p>Comprehensive life insurance with flexible plans, guaranteed returns, and lifetime coverage to secure your family's future.</p>
-          <a href="contact.html" class="btn btn-primary card-cta">Get Quote</a>
+    <div class="sec-label fade-up">Core Services</div>
+    <h2 class="fade-up" style="margin-bottom:2.5rem">Our Insurance Products</h2>
+    <div class="services-section-grid">
+      <div class="service-full-card fade-up">
+        <div class="sfc-header">
+          <div class="sfc-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm2.5-6c0 1.38-1.12 2.5-2.5 2.5S9.5 12.38 9.5 11s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5z"/></svg>
+          </div>
+          <h3>Health Insurance</h3>
         </div>
-        <div class="service-card">
-          <div class="svc-logo"><img src="assets/images/bank-logos/icici-prudential.svg" alt="ICICI Prudential"></div>
-          <h4>ICICI Prudential</h4>
-          <p>Reliable life insurance including term plans, ULIPs and retirement solutions designed for long-term financial goals.</p>
-          <a href="contact.html" class="btn btn-primary card-cta">Get Quote</a>
-        </div>
-        <div class="service-card">
-          <div class="svc-logo"><img src="assets/images/bank-logos/sbi-life.svg" alt="SBI Life"></div>
-          <h4>SBI Life Insurance</h4>
-          <p>Trusted life coverage with affordable premiums, comprehensive benefits, and customisable plans for every life stage.</p>
-          <a href="contact.html" class="btn btn-primary card-cta">Get Quote</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- HEALTH INSURANCE -->
-    <div class="svc-group">
-      <div class="svc-group-title"><span></span>Health Insurance Partners</div>
-      <div class="services-grid">
-        <div class="service-card">
-          <div class="svc-logo"><img src="assets/images/bank-logos/hdfc-ergo.svg" alt="HDFC Ergo"></div>
-          <h4>HDFC Ergo</h4>
-          <p>Comprehensive health plans covering hospitalisation, critical illness, and preventive care with cashless facility at network hospitals.</p>
-          <a href="contact.html" class="btn btn-primary card-cta">Get Quote</a>
-        </div>
-        <div class="service-card">
-          <div class="svc-logo"><img src="assets/images/bank-logos/icici-lombard.svg" alt="ICICI Lombard"></div>
-          <h4>ICICI Lombard</h4>
-          <p>Complete health protection — individual, family floater, and senior citizen plans with wide hospital network and easy claims.</p>
-          <a href="contact.html" class="btn btn-primary card-cta">Get Quote</a>
-        </div>
-        <div class="service-card">
-          <div class="svc-logo"><img src="assets/images/bank-logos/star-health.svg" alt="Star Health"></div>
-          <h4>Star Health Insurance</h4>
-          <p>Specialised health products including senior citizen plans, critical illness cover, and comprehensive family protection.</p>
-          <a href="contact.html" class="btn btn-primary card-cta">Get Quote</a>
-        </div>
-        <div class="service-card">
-          <div class="svc-logo"><img src="assets/images/bank-logos/aditya-birla-health.svg" alt="Aditya Birla Health"></div>
-          <h4>Aditya Birla Health Insurance</h4>
-          <p>Innovative solutions with wellness programmes, preventive health check-ups, and comprehensive family coverage.</p>
-          <a href="contact.html" class="btn btn-primary card-cta">Get Quote</a>
+        <div class="sfc-body">
+          <p>Comprehensive health insurance plans that protect you and your family from rising medical expenses and hospitalization costs. Get cashless treatment at leading hospitals.</p>
+          <div class="sfc-features">
+            <div class="sfc-feature">Individual &amp; Family Floater Plans</div>
+            <div class="sfc-feature">Cashless Hospitalization</div>
+            <div class="sfc-feature">Critical Illness Cover</div>
+            <div class="sfc-feature">Pre &amp; Post Hospitalization Benefits</div>
+            <div class="sfc-feature">Day Care Procedures Covered</div>
+            <div class="sfc-feature">No Claim Bonus Benefits</div>
+          </div>
         </div>
       </div>
-    </div>
-
-    <!-- MOTOR INSURANCE -->
-    <div class="svc-group">
-      <div class="svc-group-title"><span></span>Motor Insurance Partners</div>
-      <div class="services-grid">
-        <div class="service-card">
-          <div class="svc-logo"><img src="assets/images/bank-logos/hdfc-ergo.svg" alt="HDFC Ergo"></div>
-          <h4>HDFC Ergo Motor Insurance</h4>
-          <p>Complete vehicle protection — comprehensive, third-party, and own-damage coverage with 24/7 roadside assistance.</p>
-          <a href="contact.html" class="btn btn-primary card-cta">Get Quote</a>
+      <div class="service-full-card fade-up">
+        <div class="sfc-header">
+          <div class="sfc-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4 5v6c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V5l-8-3z"/></svg>
+          </div>
+          <h3>Life Insurance</h3>
         </div>
-        <div class="service-card">
-          <div class="svc-logo"><img src="assets/images/bank-logos/icici-lombard.svg" alt="ICICI Lombard"></div>
-          <h4>ICICI Lombard Motor Insurance</h4>
-          <p>Reliable car and bike insurance with zero depreciation, engine protection, and instant policy issuance.</p>
-          <a href="contact.html" class="btn btn-primary card-cta">Get Quote</a>
-        </div>
-        <div class="service-card">
-          <div class="svc-logo"><img src="assets/images/bank-logos/united-india-insurance.svg" alt="United India Insurance"></div>
-          <h4>United India Motor Insurance</h4>
-          <p>Affordable motor plans with wide garage network, quick claim processing, and optional add-on covers.</p>
-          <a href="contact.html" class="btn btn-primary card-cta">Get Quote</a>
+        <div class="sfc-body">
+          <p>Secure your family's financial future with reliable life insurance protection and long-term savings plans. Ensure your loved ones are protected no matter what.</p>
+          <div class="sfc-features">
+            <div class="sfc-feature">Term Life Insurance Plans</div>
+            <div class="sfc-feature">Endowment &amp; Money-Back Plans</div>
+            <div class="sfc-feature">ULIPs (Unit Linked Insurance Plans)</div>
+            <div class="sfc-feature">Child Education Plans</div>
+            <div class="sfc-feature">Retirement &amp; Pension Plans</div>
+            <div class="sfc-feature">Whole Life Coverage Options</div>
+          </div>
         </div>
       </div>
-    </div>
-
-    <!-- BANKING -->
-    <div class="svc-group">
-      <div class="svc-group-title"><span></span>Banking Services</div>
-      <div class="services-grid">
-        <div class="service-card">
-          <div class="svc-logo"><img src="assets/images/bank-logos/bank-of-india.svg" alt="Bank of India"></div>
-          <h4>Bank of India — Loan Services</h4>
-          <p>Personal, home, vehicle, and business loans with competitive interest rates, flexible repayment, and fast approvals.</p>
-          <a href="contact.html" class="btn btn-primary card-cta">Apply Now</a>
+      <div class="service-full-card fade-up">
+        <div class="sfc-header">
+          <div class="sfc-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+          </div>
+          <h3>Motor Insurance</h3>
+        </div>
+        <div class="sfc-body">
+          <p>Affordable and reliable insurance coverage for cars and two-wheelers with quick policy issuance and hassle-free claim support when you need it most.</p>
+          <div class="sfc-features">
+            <div class="sfc-feature">Car Insurance (Own Damage + Third Party)</div>
+            <div class="sfc-feature">Two-Wheeler Insurance</div>
+            <div class="sfc-feature">Zero Depreciation Cover</div>
+            <div class="sfc-feature">Roadside Assistance</div>
+            <div class="sfc-feature">Engine Protection Cover</div>
+            <div class="sfc-feature">Quick Cashless Claim Settlement</div>
+          </div>
+        </div>
+      </div>
+      <div class="service-full-card fade-up">
+        <div class="sfc-header">
+          <div class="sfc-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+          </div>
+          <h3>Insurance Advisory</h3>
+        </div>
+        <div class="sfc-body">
+          <p>Expert, unbiased guidance to compare policies across multiple insurers and select the best plan based on your unique needs, financial goals, and budget.</p>
+          <div class="sfc-features">
+            <div class="sfc-feature">Multi-Insurer Policy Comparison</div>
+            <div class="sfc-feature">Premium Optimization</div>
+            <div class="sfc-feature">Coverage Gap Analysis</div>
+            <div class="sfc-feature">Portfolio Review &amp; Restructuring</div>
+            <div class="sfc-feature">Claims Assistance &amp; Settlement Support</div>
+            <div class="sfc-feature">Renewal Management</div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- WHY CHOOSE -->
-  <section>
-    <div class="sec-header">
-      <div class="sec-label">Why Choose Us</div>
-      <h2>The NMD Difference</h2>
+  <!-- Partners -->
+  <div class="partners-section full-bleed">
+    <div class="partners-inner">
+      <div class="sec-label fade-up">Our Network</div>
+      <h2 class="fade-up">Insurance Partners</h2>
+      <p class="fade-up">We work with India's most trusted insurance companies to bring you the best coverage options.</p>
+      <div class="partners-grid" style="margin-top:2.5rem">
+        <div class="partner-card fade-up"><img src="assets/images/bank-logos/hdfc-life.svg" alt="HDFC Life"><span class="partner-name">HDFC Life</span></div>
+        <div class="partner-card fade-up"><img src="assets/images/bank-logos/hdfc-ergo.svg" alt="HDFC ERGO"><span class="partner-name">HDFC ERGO</span></div>
+        <div class="partner-card fade-up"><img src="assets/images/bank-logos/icici-prudential.svg" alt="ICICI Prudential"><span class="partner-name">ICICI Prudential</span></div>
+        <div class="partner-card fade-up"><img src="assets/images/bank-logos/icici-lombard.svg" alt="ICICI Lombard"><span class="partner-name">ICICI Lombard</span></div>
+        <div class="partner-card fade-up"><img src="assets/images/bank-logos/star-health.svg" alt="Star Health"><span class="partner-name">Star Health</span></div>
+        <div class="partner-card fade-up"><img src="assets/images/bank-logos/aditya-birla-health.svg" alt="Aditya Birla Health"><span class="partner-name">Aditya Birla Health</span></div>
+        <div class="partner-card fade-up"><img src="assets/images/bank-logos/sbi-life.svg" alt="SBI Life"><span class="partner-name">SBI Life</span></div>
+        <div class="partner-card fade-up"><img src="assets/images/bank-logos/united-india-insurance.svg" alt="United India"><span class="partner-name">United India</span></div>
+      </div>
     </div>
-    <div class="feature-grid">
-      <div class="feat-card"><div class="feat-icon">&#9989;</div><h4>Expert Guidance</h4><p>Personalised recommendations for your needs and budget</p></div>
-      <div class="feat-card"><div class="feat-icon">&#127775;</div><h4>Multiple Options</h4><p>Best products from India's leading providers</p></div>
-      <div class="feat-card"><div class="feat-icon">&#128640;</div><h4>Quick Processing</h4><p>Fast, hassle-free claim settlement</p></div>
-      <div class="feat-card"><div class="feat-icon">&#128222;</div><h4>Ongoing Support</h4><p>Dedicated assistance throughout your journey</p></div>
-    </div>
-  </section>
+  </div>
 
   <section>
-    <div class="cta-block">
-      <h2>Need Help Choosing?</h2>
-      <p>Our experts will help you find the perfect coverage for your needs and budget.</p>
-      <a href="contact.html" class="btn btn-white">Talk to an Expert</a>
+    <div class="cta-block fade-up">
+      <h2>Ready to Find the Right Coverage?</h2>
+      <p>Get a free, personalised insurance quote from our expert advisors today.</p>
+      <div class="cta-buttons">
+        <a href="index.html#quote" class="btn btn-gold">Get Free Quote</a>
+        <a href="contact.html" class="btn btn-white">Contact Us</a>
+      </div>
     </div>
   </section>
 </main>
+
 <footer>
   <div class="ftr-body">
     <div class="ftr-brand">
-      <a href="index.html" class="logo">
-        <img src="assets/images/nmd-logo.svg" alt="NMD Associates">
-        <span class="logo-name">NMD Associates</span>
-      </a>
-      <span class="ftr-brand-desc">Your trusted partner for insurance and banking services across India. Comprehensive solutions, expert guidance, ongoing support.</span>
-      <div class="ftr-socials">
-        <a href="https://whatsapp.com/channel/0029Vb6qlQY6rsR1KAlI8c0d" target="_blank" rel="noopener" class="ftr-si wa" title="WhatsApp"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
-        <a href="https://www.facebook.com/" target="_blank" rel="noopener" class="ftr-si fb" title="Facebook"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
-        <a href="https://www.instagram.com/nmdassociates/" target="_blank" rel="noopener" class="ftr-si ig" title="Instagram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
-        <a href="https://www.youtube.com/@NMDAssociates" target="_blank" rel="noopener" class="ftr-si yt" title="YouTube"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+      <a href="index.html" class="logo"><img src="assets/images/nmd-logo.svg" alt="NMD Associates"><span class="logo-name">NMD Associates</span></a>
+      <span class="ftr-brand-desc">Your trusted partner for insurance and banking services across India.</span>
+      <div class="ftr-mission">Mission: Protecting 1 Lakh Families</div>
+            <div class="ftr-socials">
+        <a href="https://whatsapp.com/channel/0029Vb6qlQY6rsR1KAlI8c0d" target="_blank" rel="noopener" class="ftr-si" title="WhatsApp"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+        <a href="https://www.facebook.com/profile.php?id=61588378240900" target="_blank" rel="noopener" class="ftr-si" title="Facebook"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+        <a href="https://www.instagram.com/nmdassociates/" target="_blank" rel="noopener" class="ftr-si" title="Instagram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+        <a href="https://www.youtube.com/@NMDAssociates" target="_blank" rel="noopener" class="ftr-si" title="YouTube"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
       </div>
     </div>
-    <div class="ftr-col">
-      <h4>Contact Us</h4>
-      <a class="footer-email-link" data-email data-email-text href="#"></a>
-      <a href="tel:+919788839825">+91 9788839825</a>
-      <a href="tel:+917904699119">+91 7904699119</a>
-    </div>
-    <div class="ftr-col">
-      <h4>Quick Links</h4>
-      <a href="index.html">Home</a>
-      <a href="about-us.html">About Us</a>
-      <a href="services.html">Services</a>
-      <a href="video-gallery.html">Video Gallery</a>
-      <a href="contact.html">Contact</a>
-    </div>
+    <div class="ftr-col"><h4>Contact Us</h4><a data-email data-email-text href="#"></a><a href="tel:+919788839825">+91 9788839825</a><a href="tel:+917904699119">+91 7904699119</a></div>
+    <div class="ftr-col"><h4>Quick Links</h4><a href="index.html">Home</a><a href="about-us.html">About Us</a><a href="services.html">Services</a><a href="video-gallery.html">Video Gallery</a><a href="contact.html">Contact</a></div>
     <div class="ftr-col">
       <h4>Stay Updated</h4>
-      <span>Subscribe for the latest updates</span>
-      <form class="sub-form">
-        <input type="email" placeholder="Your email address" required>
-        <button type="submit">Subscribe</button>
-      </form>
-      <div style="margin-top:1.25rem">
-        <a href="privacy-policy.html" style="font-size:0.78rem;color:rgba(255,255,255,0.4)">Privacy Policy</a>
-        <span style="font-size:0.74rem;color:rgba(255,255,255,0.28);display:block;margin-top:0.35rem">*Terms and Conditions Apply</span>
-      </div>
+      <span>Subscribe for insurance tips</span>
+      <form class="sub-form" style="margin-top:0.75rem"><input type="email" placeholder="Your email address" required><button type="submit">Subscribe</button></form>
+      <a href="privacy-policy.html" class="ftr-small-link">Privacy Policy</a>
     </div>
   </div>
-  <div class="ftr-bottom">
-    <p>&copy; 2025 NMD Associates. All rights reserved.</p>
-    <a href="privacy-policy.html">Privacy Policy</a>
-  </div>
+  <div class="ftr-bottom"><p>&copy; 2026 NMD Associates. All rights reserved.</p><a href="privacy-policy.html">Privacy Policy</a></div>
 </footer>
+
 <script src="assets/js/main.js"></script>
 </body>
 </html>

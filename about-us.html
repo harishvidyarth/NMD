@@ -3,25 +3,68 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Us - NMD Associates</title>
-  <meta name="description" content="NMD Associates - Trusted insurance and banking services in India.">
+  <title>About Us – NMD Associates | Insurance Advisory, Tirunelveli</title>
+  <meta name="description" content="Learn about NMD Associates, founded by M. Muthukumaran with 23+ years of experience in banking, telecom and insurance across Tirunelveli, Tenkasi and Thoothukudi.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="assets/css/style-apple.css">
+  <link rel="stylesheet" href="assets/css/style-apple.css?v=3">
+
+<style>
+/* PARTNER SECTION OVERRIDE */
+.partners-section { background: #f4f3f0 !important; }
+.partners-inner h2 { color: #021241 !important; }
+.partners-inner > p { color: #7a82a0 !important; }
+.partners-grid {
+  background: #021241 !important;
+  border: 1px solid rgba(2,18,65,0.2) !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+}
+.partner-card {
+  background: #021241 !important;
+  border-right: 1px solid rgba(255,255,255,0.08) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+  padding: 2.5rem 2rem !important;
+  min-height: 140px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.85rem !important;
+}
+.partner-card:hover { background: rgba(255,255,255,0.07) !important; }
+.partner-card img {
+  height: 40px !important;
+  width: auto !important;
+  max-width: 130px !important;
+  object-fit: contain !important;
+  filter: brightness(0) invert(1) !important;
+  opacity: 0.75 !important;
+  mix-blend-mode: normal !important;
+}
+.partner-card:hover img { opacity: 1 !important; }
+.partner-name {
+  color: rgba(255,255,255,0.4) !important;
+  font-size: 0.62rem !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+}
+.partner-card:hover .partner-name { color: rgba(255,255,255,0.75) !important; }
+</style>
 </head>
 <body>
+
 <header>
   <div class="hdr-top">
     <a href="index.html" class="logo">
       <img src="assets/images/nmd-logo.svg" alt="NMD Associates Logo">
       <span class="logo-name">NMD Associates</span>
     </a>
-    <button class="nav-toggle" aria-label="Toggle navigation">&#9776;</button>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
     <div class="hdr-contacts">
       <a class="hdr-link" data-email data-email-text href="#">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-        <span class="hdr-link-full" data-email data-email-text></span>
-        <span class="hdr-link-short">Mail Us</span>
       </a>
       <div class="hdr-sep"></div>
       <a href="tel:+919788839825" class="hdr-link">
@@ -33,57 +76,184 @@
   </div>
   <nav>
     <ul class="nav-ul">
-        <li><a href="index.html" >Home</a></li>
-        <li><a href="about-us.html" class='active'>About Us</a></li>
-        <li><a href="services.html" >Services</a></li>
-        <li><a href="video-gallery.html" >Video Gallery</a></li>
-        <li><a href="contact.html" >Contact</a></li>
-        <li><a href="privacy-policy.html" >Privacy Policy</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about-us.html" class="active">About Us</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="video-gallery.html">Video Gallery</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="privacy-policy.html">Privacy Policy</a></li>
     </ul>
   </nav>
 </header>
+
 <main>
+
+  <!-- PAGE HERO -->
   <section class="page-hero">
     <div class="sec-label">Our Story</div>
     <h1>About NMD Associates</h1>
-    <p>A dedicated team of insurance and banking professionals committed to protecting your financial future.</p>
+    <p>A dedicated insurance advisory committed to protecting your financial future — one family at a time.</p>
   </section>
 
+  <!-- FOUNDER -->
+  <div class="founder-section full-bleed">
+    <div class="founder-inner">
+      <div class="founder-visual fade-up">
+        <div class="founder-photo-frame">
+          <div class="founder-initials">MM</div>
+          <div class="founder-badge-card">
+            <span class="name">M. Muthukumaran</span>
+            <span class="title">Founder &amp; Insurance Advisor</span>
+          </div>
+        </div>
+      </div>
+      <div class="founder-text fade-up">
+        <div class="sec-label">Founder</div>
+        <h2>Muthukumaran Madasamy</h2>
+        <p>NMD Associates is a professional insurance advisory service dedicated to helping individuals and families protect their financial future through the right insurance solutions.</p>
+        <p>Founded by <strong>M. Muthukumaran</strong>, NMD Associates brings over <strong>23 years of professional experience</strong> across the banking, telecom, and insurance industries. With strong industry knowledge and a customer-focused approach, we guide clients in choosing the most suitable insurance plans based on their needs, budget, and long-term financial goals.</p>
+        <p>Over the years, we have successfully served <strong>10,000+ customers</strong> and currently assist <strong>100+ insurance policyholders</strong> with policy selection, servicing, and claim support across Tirunelveli, Tenkasi, and Thoothukudi.</p>
+        <div class="founder-quote">"Insurance is not just a policy — it is protection for your family's future."</div>
+        <div class="founder-stats">
+          <div class="fstat"><span class="fstat-num">23+</span><span class="fstat-label">Years Exp.</span></div>
+          <div class="fstat"><span class="fstat-num">10K+</span><span class="fstat-label">Customers</span></div>
+          <div class="fstat"><span class="fstat-num">100+</span><span class="fstat-label">Clients</span></div>
+          <div class="fstat"><span class="fstat-num">3</span><span class="fstat-label">Districts</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MISSION -->
   <section>
     <div class="about-content">
-      <h3>Our Mission</h3>
-      <p>At NMD Associates, our mission is to help individuals and families find affordable, comprehensive insurance and banking solutions that meet their unique needs. We are committed to providing exceptional customer service and support throughout the entire process — from your first query to claims assistance.</p>
+      <div class="sec-label fade-up">Our Purpose</div>
+      <h2 class="fade-up" style="margin-bottom:1.25rem">Our Mission</h2>
+      <p class="fade-up">At NMD Associates, our mission is simple: to provide honest insurance guidance, transparent policy comparisons, and reliable support during claims. Our goal is to bring <strong>1,00,000 families</strong> under financial protection through the right insurance solutions.</p>
 
-      <h3>Who We Are</h3>
-      <p>We are a dedicated team of insurance and banking professionals with years of experience in the financial services industry. Our expertise spans life insurance, health insurance, motor insurance, and banking products from India's most trusted providers. We serve thousands of clients across India with honesty and care.</p>
-
-      <h3>Why Choose Us</h3>
-      <div class="services-grid" style="margin-top:1.5rem">
-        <div class="service-card"><h4>&#9989; Expert Guidance</h4><p>Our team provides personalised recommendations based on your specific needs and budget.</p></div>
-        <div class="service-card"><h4>&#127775; Multiple Options</h4><p>We partner with leading insurance providers and banks to offer the best coverage options.</p></div>
-        <div class="service-card"><h4>&#128640; Hassle-Free Process</h4><p>From quote to policy issuance, we make the entire process simple and transparent.</p></div>
-        <div class="service-card"><h4>&#128222; Ongoing Support</h4><p>We're here to assist with claims, renewals, and any questions you may have.</p></div>
+      <h3 class="fade-up" style="margin-top:2.5rem">Service Locations</h3>
+      <p class="fade-up">NMD Associates proudly serves customers across:</p>
+      <div class="areas-list fade-up" style="margin:1rem 0 2rem">
+        <div class="area-chip"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width:11px;height:11px"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Tirunelveli District</div>
+        <div class="area-chip"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width:11px;height:11px"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Tenkasi District</div>
+        <div class="area-chip"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width:11px;height:11px"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Thoothukudi District</div>
+        <div class="area-chip area-chip-muted">Online across Tamil Nadu</div>
       </div>
+    </div>
 
-      <h3>Our Values</h3>
-      <ul>
-        <li><strong>Integrity:</strong> Honest and transparent communication in everything we do</li>
-        <li><strong>Customer First:</strong> Your needs and satisfaction are our top priority</li>
-        <li><strong>Excellence:</strong> We strive to deliver the highest quality service every time</li>
-        <li><strong>Innovation:</strong> We continuously improve our processes to serve you better</li>
-        <li><strong>Trust:</strong> Building lasting relationships through reliability and consistency</li>
-      </ul>
+    <!-- WHY CHOOSE CARDS -->
+    <div class="services-grid fade-up" style="margin-top:1rem">
+      <div class="service-card">
+        <div class="service-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg></div>
+        <h4>Expert Guidance</h4>
+        <p>Personalised recommendations based on your specific needs and budget with transparent, unbiased advice.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4 5v6c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V5l-8-3z"/></svg></div>
+        <h4>Multiple Options</h4>
+        <p>We partner with leading insurance providers to offer the best coverage at competitive premiums.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg></div>
+        <h4>Hassle-Free Process</h4>
+        <p>From quote to policy issuance, we make the entire process simple, digital, and transparent.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></div>
+        <h4>Ongoing Support</h4>
+        <p>We assist with claims, renewals, and questions — even after your policy is issued.</p>
+      </div>
     </div>
   </section>
 
+  <!-- OUR VALUES — Redesigned navy section -->
+  <div class="values-section full-bleed fade-up">
+    <div class="values-inner">
+      <div class="sec-label">What Drives Us</div>
+      <h2>Our Core Values</h2>
+      <p>Every interaction, every policy, every claim — guided by these five principles.</p>
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+          </div>
+          <h4>Integrity</h4>
+          <p>Honest and transparent communication in everything we do — no hidden agendas, ever.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+          </div>
+          <h4>Customer First</h4>
+          <p>Your needs and satisfaction are our top priority — before commissions, before shortcuts.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <h4>Excellence</h4>
+          <p>We deliver the highest quality service every time — from first call to final settlement.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+          </div>
+          <h4>Innovation</h4>
+          <p>We continuously improve our processes, tools, and approach to serve you better every year.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
+          </div>
+          <h4>Trust</h4>
+          <p>Building lasting relationships through reliability, consistency, and genuine care for every client.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOLLOW US -->
+  <div class="social-section full-bleed fade-up">
+    <div class="social-inner">
+      <div class="social-text">
+        <h3>Follow Us Online</h3>
+        <p>Stay updated with insurance tips, policy updates, and more across all our channels.</p>
+      </div>
+      <div class="social-links">
+        <a href="https://whatsapp.com/channel/0029Vb6qlQY6rsR1KAlI8c0d" target="_blank" rel="noopener" class="social-btn social-btn-wa">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp
+        </a>
+        <a href="https://www.facebook.com/profile.php?id=61588378240900" target="_blank" rel="noopener" class="social-btn social-btn-fb">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          Facebook
+        </a>
+        <a href="https://www.instagram.com/nmdassociates/" target="_blank" rel="noopener" class="social-btn social-btn-ig">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          Instagram
+        </a>
+        <a href="https://www.youtube.com/@NMDAssociates" target="_blank" rel="noopener" class="social-btn social-btn-yt">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          YouTube
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
   <section>
-    <div class="cta-block">
-      <h2>Let&#8217;s Protect Your Future Together</h2>
+    <div class="cta-block fade-up">
+      <h2>Let Us Protect Your Future Together</h2>
       <p>Speak with our experts today for a free, no-obligation consultation.</p>
-      <a href="contact.html" class="btn btn-white">Get In Touch</a>
+      <div class="cta-buttons">
+        <a href="contact.html" class="btn btn-gold">Get In Touch</a>
+        <a href="tel:+919788839825" class="btn btn-white">Call 9788839825</a>
+      </div>
     </div>
   </section>
+
 </main>
+
 <footer>
   <div class="ftr-body">
     <div class="ftr-brand">
@@ -91,19 +261,21 @@
         <img src="assets/images/nmd-logo.svg" alt="NMD Associates">
         <span class="logo-name">NMD Associates</span>
       </a>
-      <span class="ftr-brand-desc">Your trusted partner for insurance and banking services across India. Comprehensive solutions, expert guidance, ongoing support.</span>
+      <span class="ftr-brand-desc">Your trusted partner for insurance advisory services across Tirunelveli, Tenkasi, and Thoothukudi. Expert guidance, genuine care.</span>
+      <div class="ftr-mission">Mission: Protecting 1 Lakh Families</div>
       <div class="ftr-socials">
-        <a href="https://whatsapp.com/channel/0029Vb6qlQY6rsR1KAlI8c0d" target="_blank" rel="noopener" class="ftr-si wa" title="WhatsApp"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
-        <a href="https://www.facebook.com/" target="_blank" rel="noopener" class="ftr-si fb" title="Facebook"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
-        <a href="https://www.instagram.com/nmdassociates/" target="_blank" rel="noopener" class="ftr-si ig" title="Instagram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
-        <a href="https://www.youtube.com/@NMDAssociates" target="_blank" rel="noopener" class="ftr-si yt" title="YouTube"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+        <a href="https://whatsapp.com/channel/0029Vb6qlQY6rsR1KAlI8c0d" target="_blank" rel="noopener" class="ftr-si" title="WhatsApp"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+        <a href="https://www.facebook.com/profile.php?id=61588378240900" target="_blank" rel="noopener" class="ftr-si" title="Facebook"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+        <a href="https://www.instagram.com/nmdassociates/" target="_blank" rel="noopener" class="ftr-si" title="Instagram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+        <a href="https://www.youtube.com/@NMDAssociates" target="_blank" rel="noopener" class="ftr-si" title="YouTube"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
       </div>
     </div>
     <div class="ftr-col">
       <h4>Contact Us</h4>
-      <a class="footer-email-link" data-email data-email-text href="#"></a>
+      <a data-email data-email-text href="#"></a>
       <a href="tel:+919788839825">+91 9788839825</a>
       <a href="tel:+917904699119">+91 7904699119</a>
+      <a href="https://wa.me/919788839825" target="_blank" rel="noopener">WhatsApp Chat</a>
     </div>
     <div class="ftr-col">
       <h4>Quick Links</h4>
@@ -115,22 +287,21 @@
     </div>
     <div class="ftr-col">
       <h4>Stay Updated</h4>
-      <span>Subscribe for the latest updates</span>
+      <span>Subscribe for insurance tips and updates</span>
       <form class="sub-form">
         <input type="email" placeholder="Your email address" required>
         <button type="submit">Subscribe</button>
       </form>
-      <div style="margin-top:1.25rem">
-        <a href="privacy-policy.html" style="font-size:0.78rem;color:rgba(255,255,255,0.4)">Privacy Policy</a>
-        <span style="font-size:0.74rem;color:rgba(255,255,255,0.28);display:block;margin-top:0.35rem">*Terms and Conditions Apply</span>
-      </div>
+      <a href="privacy-policy.html" class="ftr-small-link">Privacy Policy</a>
+      <span class="ftr-small-text">*Terms and Conditions Apply</span>
     </div>
   </div>
   <div class="ftr-bottom">
-    <p>&copy; 2025 NMD Associates. All rights reserved.</p>
+    <p>&copy; 2026 NMD Associates. All rights reserved.</p>
     <a href="privacy-policy.html">Privacy Policy</a>
   </div>
 </footer>
+
 <script src="assets/js/main.js"></script>
 </body>
 </html>
