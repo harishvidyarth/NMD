@@ -388,9 +388,8 @@ nav{border-top:1px solid var(--border);background:var(--white)}
   opacity:1;
 }
 .partner-card:hover img{transform:scale(1.05)}
-/* Aditya Birla logo needs extra scale due to large viewBox */
-.partner-card:nth-child(6) img{transform:scale(2.2)}
-.partner-card:nth-child(6):hover img{transform:scale(2.3)}
+.partner-card:nth-child(6) img{transform:scale(1.7)}
+.partner-card:nth-child(6):hover img{transform:scale(1.8)}
 .partner-name{
   font-size:0.63rem;font-weight:600;letter-spacing:0.1em;
   text-transform:uppercase;color:#374060;text-align:center;
