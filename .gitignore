@@ -1,0 +1,13 @@
+# Local config (contains API keys - DO NOT COMMIT)
+assets/js/config.js
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/
