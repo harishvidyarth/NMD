@@ -22,13 +22,25 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="assets/css/style-apple.css?v=3">
 
+  <!-- Load config -->
+  <script src="assets/js/config.js"></script>
+
   <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QCBT1Z7RG7"></script>
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-QCBT1Z7RG7');
+    (function() {
+      var gaId = window.SITE_CONFIG && window.SITE_CONFIG.gaId;
+      if (gaId) {
+        var script = document.createElement('script');
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=' + gaId;
+        script.async = true;
+        document.head.appendChild(script);
+        
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', gaId);
+      }
+    })();
   </script>
 
 <style>
