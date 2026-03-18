@@ -181,7 +181,14 @@
     <div class="ftr-col">
       <h4>Stay Updated</h4>
       <span>Subscribe for insurance tips</span>
-      <form class="sub-form" style="margin-top:0.75rem"><input type="email" placeholder="Your email address" required><button type="submit">Subscribe</button></form>
+      <form class="sub-form" style="margin-top:0.75rem" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="4d6c4d43-045a-4cbf-9cdc-58888b2b1374">
+        <input type="hidden" name="subject" value="New Email Subscription - NMD Associates">
+        <input type="hidden" name="from_name" value="NMD Associates Website">
+        <input type="checkbox" name="botcheck" style="display: none;">
+        <input type="email" name="Email" placeholder="Your email address" required>
+        <button type="submit">Subscribe</button>
+      </form>
       <a href="privacy-policy.html" class="ftr-small-link">Privacy Policy</a>
     </div>
   </div>

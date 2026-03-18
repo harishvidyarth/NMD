@@ -446,7 +446,12 @@
       </div>
       <div class="lead-form-card fade-up">
         <h3>Request a Free Quote</h3>
-        <form class="lead-form" novalidate>
+        <form class="lead-form" action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="4d6c4d43-045a-4cbf-9cdc-58888b2b1374">
+          <input type="hidden" name="subject" value="New Insurance Quote Request - NMD Associates">
+          <input type="hidden" name="from_name" value="NMD Associates Website">
+          <input type="hidden" name="redirect" value="https://nmdassociates.in/thank-you.html">
+          <input type="checkbox" name="botcheck" style="display: none;">
           <div class="form-row">
             <div class="form-group"><label for="f-name">Full Name</label><input type="text" id="f-name" name="Full Name" placeholder="Your full name" required></div>
             <div class="form-group"><label for="f-phone">Mobile Number</label><input type="tel" id="f-phone" name="Mobile" placeholder="+91 98765 43210" required></div>
@@ -536,8 +541,12 @@
     <div class="ftr-col">
       <h4>Stay Updated</h4>
       <span>Subscribe for insurance tips and updates</span>
-      <form class="sub-form">
-        <input type="email" placeholder="Your email address" required>
+      <form class="sub-form" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="4d6c4d43-045a-4cbf-9cdc-58888b2b1374">
+        <input type="hidden" name="subject" value="New Email Subscription - NMD Associates">
+        <input type="hidden" name="from_name" value="NMD Associates Website">
+        <input type="checkbox" name="botcheck" style="display: none;">
+        <input type="email" name="Email" placeholder="Your email address" required>
         <button type="submit">Subscribe</button>
       </form>
       <a href="privacy-policy.html" class="ftr-small-link">Privacy Policy</a>
