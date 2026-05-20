@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NMD Associates – Trusted Insurance Advisory | Tirunelveli, Tenkasi, Thoothukudi</title>
-  <meta name="description" content="NMD Associates is a trusted insurance advisory service with 23+ years of experience helping families choose Life, Health, and Motor Insurance across Tirunelveli, Tenkasi & Thoothukudi.">
+  <meta name="description" content="NMD Associates is a trusted insurance advisory service with 16+ years of experience helping families choose Life, Health, and Motor Insurance across Tirunelveli, Tenkasi & Thoothukudi.">
   <meta name="keywords" content="Insurance, Life Insurance, Health Insurance, Motor Insurance, NMD Associates, Tirunelveli, Tenkasi, Thoothukudi, Insurance Advisor, Best Insurance">
   <meta name="author" content="NMD Associates">
   <meta name="robots" content="index, follow">
@@ -14,14 +14,14 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://nmdassociates.in/">
   <meta property="og:title" content="NMD Associates – Trusted Insurance Advisory">
-  <meta property="og:description" content="23+ years of experience helping families choose the right Insurance. Life, Health & Motor Insurance experts in Tirunelveli, Tenkasi & Thoothukudi.">
+  <meta property="og:description" content="16+ years of experience helping families choose the right Insurance. Life, Health & Motor Insurance experts in Tirunelveli, Tenkasi & Thoothukudi.">
   <meta property="og:image" content="https://nmdassociates.in/assets/images/nmd-logo.svg">
   
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://nmdassociates.in/">
   <meta property="twitter:title" content="NMD Associates – Trusted Insurance Advisory">
-  <meta property="twitter:description" content="23+ years of experience helping families choose the right Insurance.">
+  <meta property="twitter:description" content="16+ years of experience helping families choose the right Insurance.">
   
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="assets/images/nmd-logo.svg">
@@ -33,6 +33,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="assets/css/style-apple.css?v=3">
+
+  <script>
+    (function() {
+      var url = window.location.origin + window.location.pathname;
+      var canonical = document.querySelector('link[rel="canonical"]');
+      if (canonical) canonical.href = url;
+      document.querySelectorAll('meta[property="og:url"], meta[property="twitter:url"]').forEach(function(m) { m.content = url; });
+    })();
+  </script>
 
   <!-- Load config first -->
   <script src="assets/js/config.js"></script>
@@ -139,8 +148,17 @@
       <img src="assets/images/nmd-logo.svg" alt="NMD Associates Logo">
       <span class="logo-name">NMD Associates</span>
     </a>
-    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+    <button class="nav-burger" aria-label="Toggle navigation" aria-expanded="false">
+  <span class="burger-line"></span>
+  <span class="burger-line"></span>
+  <span class="burger-line"></span>
+</button>
     <div class="hdr-contacts">
+      <div class="lang-toggle" id="langToggle" role="button" aria-label="Switch language">
+        <span class="lang-btn active" data-lang="en">EN</span>
+        <span class="lang-btn" data-lang="ta">தமிழ்</span>
+      </div>
+      <div class="hdr-sep"></div>
       <a class="hdr-link" data-email data-email-text href="#">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
         <span class="hdr-link-short">Mail Us</span>
@@ -155,12 +173,14 @@
   </div>
   <nav>
     <ul class="nav-ul">
-      <li><a href="index.html" class="active">Home</a></li>
-      <li><a href="about-us.html">About Us</a></li>
-      <li><a href="services.html">Services</a></li>
-      <li><a href="index.html#partners">Partners</a></li>
-      <li><a href="index.html#claims">Claims</a></li>
-      <li><a href="contact.html">Contact</a></li>
+      <span class="nav-pill" aria-hidden="true"></span>
+      <li><a href="index.html" class="active" data-i18n="nav-home">Home</a></li>
+      <li><a href="about-us.html" data-i18n="nav-about">About Us</a></li>
+      <li><a href="services.html" data-i18n="nav-services">Services</a></li>
+      <li><a href="video-gallery.html" data-i18n="nav-video">Video Gallery</a></li>
+      <li><a href="contact.html" data-i18n="nav-contact">Contact</a></li>
+      <li><a href="privacy-policy.html" data-i18n="nav-privacy">Privacy Policy</a></li>
+      <li><a href="terms-and-conditions.html" data-i18n="nav-terms">Terms</a></li>
     </ul>
   </nav>
 </header>
@@ -173,12 +193,12 @@
     <div class="hero-pattern"></div>
     <div class="hero-content">
       <div class="hero-text">
-        <div class="hero-badge">23+ Years of Trusted Service</div>
-        <h1>Protecting Your <em>Family's Future</em> with the Right Insurance</h1>
-        <p class="hero-sub">NMD Associates is a trusted insurance advisory service helping individuals and families choose the best Life, Health, and Motor Insurance solutions with expert guidance and reliable claim support.</p>
+        <div class="hero-badge" data-i18n="hero-badge">Since 2010 – Trusted Insurance Advisory</div>
+        <h1 data-i18n="hero-h1" data-i18n-html="1">Protecting Your <em>Family's Future</em> with the Right Insurance</h1>
+        <p class="hero-sub" data-i18n="hero-sub">NMD Associates is a trusted insurance advisory service helping individuals and families choose the best Life, Health, and Motor Insurance solutions with expert guidance and reliable claim support.</p>
         <div class="hero-location">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-          Serving Tirunelveli &bull; Tenkasi &bull; Thoothukudi Districts
+          <span data-i18n="hero-loc">Serving Tirunelveli &bull; Tenkasi &bull; Thoothukudi Districts</span>
         </div>
         <div class="hero-cta">
           <a href="#quote" class="btn btn-navy">Get Free Insurance Quote</a>
@@ -197,7 +217,7 @@
           <div class="hero-card-label">Mission</div>
           <div class="hero-card-title">Protecting<br>1 Lakh Families</div>
           <div class="hero-progress-track"><div class="hero-progress-fill"></div></div>
-          <div class="hero-card-sub">126 of 1,00,000 families protected</div>
+          <div class="hero-card-sub">10,847 of 1,00,000 families protected</div>
         </div>
         <div class="hero-card">
           <div class="hero-card-label">Quick Response</div>
@@ -227,25 +247,59 @@
   <div class="stats-bar">
     <div class="stats-inner">
       <div class="stat-item fade-up">
-        <div class="stat-number"><span data-target="23" data-suffix="+">0+</span></div>
-        <div class="stat-label">Years Experience</div>
+        <div class="stat-number"><span data-target="16" data-suffix="+">16+</span></div>
+        <div class="stat-label" data-i18n="stat-years">Years Experience</div>
       </div>
       <div class="stat-item fade-up">
-        <div class="stat-number"><span data-target="10000" data-suffix="+">0+</span></div>
-        <div class="stat-label">Customers Served</div>
+        <div class="stat-number"><span data-target="10000" data-suffix="+">10,000+</span></div>
+        <div class="stat-label" data-i18n="stat-customers">Customers Served</div>
       </div>
       <div class="stat-item fade-up">
-        <div class="stat-number"><span data-target="100" data-suffix="+">0+</span></div>
-        <div class="stat-label">Insurance Clients</div>
+        <div class="stat-number"><span data-target="100" data-suffix="+">100+</span></div>
+        <div class="stat-label" data-i18n="stat-clients">Insurance Clients</div>
       </div>
       <div class="stat-item fade-up">
-        <div class="stat-number"><span data-target="7" data-suffix="+">0+</span></div>
-        <div class="stat-label">Insurance Partners</div>
+        <div class="stat-number"><span data-target="7" data-suffix="+">7+</span></div>
+        <div class="stat-label" data-i18n="stat-partners">Insurance Partners</div>
       </div>
       <div class="stat-item fade-up">
-        <div class="stat-number"><span data-target="3">0</span></div>
-        <div class="stat-label">Districts Served</div>
+        <div class="stat-number"><span data-target="3">3</span></div>
+        <div class="stat-label" data-i18n="stat-districts">Districts Served</div>
       </div>
+    </div>
+  </div>
+
+  <!-- MARQUEE TICKER -->
+  <div class="marquee-bar" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="marquee-item">Life Insurance</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item">Health Insurance</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item">Motor Insurance</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item">Since 2010</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item">10,000+ Customers</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item">Tirunelveli · Tenkasi · Thoothukudi</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item">Trusted Insurance Advisory</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item">Life Insurance</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item">Health Insurance</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item">Motor Insurance</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item">Since 2010</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item">10,000+ Customers</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item">Tirunelveli · Tenkasi · Thoothukudi</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item">Trusted Insurance Advisory</span>
+      <span class="marquee-sep">✦</span>
     </div>
   </div>
 
@@ -253,8 +307,8 @@
   <div class="mission-section full-bleed">
     <div class="mission-inner">
       <div class="fade-up">
-        <div class="sec-label">Our Purpose</div>
-        <h2>Mission: Protecting 1 Lakh Families</h2>
+        <div class="sec-label" data-i18n="sec-purpose">Our Purpose</div>
+        <h2 data-i18n="mission-h2">Mission: Protecting 1 Lakh Families</h2>
         <p>Our goal is to bring 1,00,000 families under financial protection through the right insurance solutions — making expert guidance accessible, affordable, and trustworthy for every household in Tamil Nadu.</p>
         <p>Every family deserves the security of knowing that their future is protected. We are committed to making that a reality across our communities.</p>
         <div class="mission-quote">"Insurance is not just a policy — it is protection for your family's future."</div>
@@ -264,17 +318,17 @@
         <div class="mission-progress">
           <div class="progress-header">
             <div class="progress-title">Families Under Protection</div>
-            <div class="progress-count"><span>126</span> / 1,00,000</div>
+            <div class="progress-count"><span>10,847</span> / 1,00,000</div>
           </div>
           <div class="progress-track"><div class="progress-fill"></div></div>
           <div class="progress-caption">Every policy sold brings us closer to our mission of 1 lakh families protected.</div>
           <div class="mission-counters">
             <div class="mission-counter">
-              <div class="mission-counter-num">126</div>
+              <div class="mission-counter-num">10847</div>
               <div class="mission-counter-label">Protected Today</div>
             </div>
             <div class="mission-counter">
-              <div class="mission-counter-num gold">99,874</div>
+              <div class="mission-counter-num gold">89,153</div>
               <div class="mission-counter-label">To Go</div>
             </div>
           </div>
@@ -285,8 +339,8 @@
 
   <!-- SERVICES -->
   <section>
-    <div class="sec-label fade-up">What We Offer</div>
-    <h2 class="fade-up section-heading">Insurance Services</h2>
+    <div class="sec-label fade-up" data-i18n="sec-offer">What We Offer</div>
+    <h2 class="fade-up section-heading" data-i18n="services-h2">Insurance Services</h2>
     <p class="fade-up section-sub">Comprehensive coverage solutions from India's most trusted insurance companies, tailored to your needs and budget.</p>
     <div class="services-grid">
       <div class="service-card fade-up">
@@ -327,8 +381,8 @@
   <!-- PARTNERS -->
     <div id="partners" class="partners-section full-bleed">
     <div class="partners-inner">
-      <div class="sec-label fade-up">Our Network</div>
-      <h2 class="fade-up">Insurance Partners</h2>
+      <div class="sec-label fade-up" data-i18n="sec-network">Our Network</div>
+      <h2 class="fade-up" data-i18n="partners-h2">Insurance Partners</h2>
       <p class="fade-up">We work with India's most trusted insurance companies to bring you the best coverage options.</p>
       <div class="partners-grid">
         <div class="partner-card fade-up">
@@ -396,13 +450,13 @@
   <div class="why-section full-bleed">
     <div class="why-inner">
       <div class="fade-up">
-        <div class="sec-label">Our Advantage</div>
-        <h2 class="section-heading">Why Choose NMD Associates</h2>
+        <div class="sec-label" data-i18n="sec-advantage">Our Advantage</div>
+        <h2 class="section-heading" data-i18n="why-h2">Why Choose NMD Associates</h2>
         <p class="section-sub">With over two decades of experience across banking, telecom, and insurance, we bring unmatched depth of knowledge to every client interaction.</p>
         <a href="about-us.html" class="btn btn-navy">Our Full Story</a>
       </div>
       <div class="why-reasons fade-up">
-        <div class="why-item"><div class="why-num">01</div><div><h4>23+ Years Industry Experience</h4><p>Deep expertise across banking, telecom, and insurance sectors — serving customers with knowledge that only decades can build.</p></div></div>
+        <div class="why-item"><div class="why-num">01</div><div><h4>16+ Years Industry Experience</h4><p>Deep expertise across banking, telecom, and insurance sectors — serving customers with knowledge that only decades can build.</p></div></div>
         <div class="why-item"><div class="why-num">02</div><div><h4>Trusted Insurance Advisory</h4><p>Unbiased, honest guidance to help you select the right plan. Your interests come first — always.</p></div></div>
         <div class="why-item"><div class="why-num">03</div><div><h4>Transparent Policy Comparison</h4><p>We compare plans across multiple insurers to find you the best coverage at the most competitive premium.</p></div></div>
         <div class="why-item"><div class="why-num">04</div><div><h4>Claim Assistance Support</h4><p>We stand with you when it matters most — guiding you step-by-step through the claims process.</p></div></div>
@@ -411,39 +465,11 @@
     </div>
   </div>
 
-  <!-- FOUNDER -->
-  <div class="founder-section full-bleed">
-    <div class="founder-inner">
-      <div class="founder-visual fade-up">
-        <div class="founder-photo-frame">
-          <div class="founder-initials">MM</div>
-          <div class="founder-badge-card">
-            <span class="name">M. Muthukumaran</span>
-            <span class="title">Founder &amp; Insurance Advisor</span>
-          </div>
-        </div>
-      </div>
-      <div class="founder-text fade-up">
-        <div class="sec-label">Meet the Founder</div>
-        <h2>Muthukumaran Madasamy</h2>
-        <p>Muthukumaran Madasamy, founder of NMD Associates, brings over <strong>23 years of professional experience</strong> across the banking, telecom, and insurance industries.</p>
-        <p>With a strong commitment to customer service and financial protection, he has served <strong>10,000+ customers</strong> and currently supports <strong>100+ insurance clients</strong> across Tirunelveli, Tenkasi, and Thoothukudi districts.</p>
-        <div class="founder-quote">"Insurance is not just a policy — it is protection for your family's future."</div>
-        <div class="founder-stats">
-          <div class="fstat"><span class="fstat-num">23+</span><span class="fstat-label">Years Exp.</span></div>
-          <div class="fstat"><span class="fstat-num">10K+</span><span class="fstat-label">Customers</span></div>
-          <div class="fstat"><span class="fstat-num">100+</span><span class="fstat-label">Clients</span></div>
-          <div class="fstat"><span class="fstat-num">3</span><span class="fstat-label">Districts</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- TESTIMONIALS -->
   <div class="testimonials-section full-bleed">
     <div class="testimonials-inner">
       <div class="testimonials-header fade-up">
-        <div><div class="sec-label">Client Reviews</div><h2>What Our Clients Say</h2></div>
+        <div><div class="sec-label" data-i18n="sec-reviews">Client Reviews</div><h2 data-i18n="reviews-h2">What Our Clients Say</h2></div>
         <div class="rating-badge">
           <div class="rating-score">4.9</div>
           <div class="rating-stars">
@@ -473,6 +499,12 @@
           <div class="reviewer"><div class="reviewer-avatar">VM</div><div><span class="reviewer-name">Vijay Mohan</span><span class="reviewer-info">Motor Insurance Client, Thoothukudi</span></div><div class="verified-badge">Verified</div></div>
         </div>
       </div>
+      <div class="google-reviews-cta fade-up">
+        <a href="https://www.facebook.com/profile.php?id=61588378240900" class="btn-google-reviews" id="googleReviewsBtn" target="_blank" rel="noopener">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#1877F2"/></svg>
+          See Our Reviews on Facebook
+        </a>
+      </div>
     </div>
   </div>
 
@@ -480,8 +512,8 @@
   <div id="quote" class="lead-section full-bleed">
     <div class="lead-inner">
       <div class="lead-text fade-up">
-        <div class="sec-label">Free Consultation</div>
-        <h2>Get Your Free Insurance Quote Today</h2>
+        <div class="sec-label" data-i18n="sec-consultation">Free Consultation</div>
+        <h2 data-i18n="quote-h2">Get Your Free Insurance Quote Today</h2>
         <p>Talk to our expert advisors and get a personalised recommendation tailored to your family's needs and budget. No obligation, no sales pressure.</p>
         <div class="lead-points">
           <div class="lead-point"><div class="lead-point-dot"></div>Expert, unbiased advice on the best plans</div>
@@ -492,12 +524,11 @@
       </div>
       <div class="lead-form-card fade-up">
         <h3>Request a Free Quote</h3>
-        <form class="lead-form" action="https://api.web3forms.com/submit" method="POST">
+        <form class="lead-form" id="quoteForm">
           <input type="hidden" name="access_key" value="4d6c4d43-045a-4cbf-9cdc-58888b2b1374">
-          <input type="hidden" name="subject" value="New Insurance Quote Request - NMD Associates">
+          <input type="hidden" name="subject" value="New Quote Request – NMD Associates">
           <input type="hidden" name="from_name" value="NMD Associates Website">
-          <input type="hidden" name="redirect" value="https://nmdassociates.in/thank-you.html">
-          <input type="checkbox" name="botcheck" style="display: none;">
+          <input type="checkbox" name="botcheck" style="display:none">
           <div class="form-row">
             <div class="form-group"><label for="f-name">Full Name</label><input type="text" id="f-name" name="Full Name" placeholder="Your full name" required></div>
             <div class="form-group"><label for="f-phone">Mobile Number</label><input type="tel" id="f-phone" name="Mobile" placeholder="+91 98765 43210" required></div>
@@ -516,7 +547,7 @@
             </div>
           </div>
           <div class="form-group"><label for="f-msg">Message (Optional)</label><input type="text" id="f-msg" name="Message" placeholder="Any specific requirements?"></div>
-          <button type="submit" class="form-submit">Get Free Quote</button>
+          <button type="submit" class="form-submit" id="quoteSubmitBtn">Get Free Quote</button>
           <p class="form-note">*Terms and Conditions Apply. We respect your privacy.</p>
         </form>
       </div>
@@ -525,8 +556,8 @@
 
   <!-- CLAIMS -->
   <section id="claims">
-    <div class="sec-label fade-up">Claim Support</div>
-    <h2 class="fade-up section-heading">We Support You Through Claims</h2>
+    <div class="sec-label fade-up" data-i18n="sec-claims">Claim Support</div>
+    <h2 class="fade-up section-heading" data-i18n="claims-h2">We Support You Through Claims</h2>
     <p class="fade-up section-sub">When you need your insurance the most, we are by your side. Our dedicated claim support team guides you through every step of the process.</p>
     <div class="cta-block fade-up">
       <h2>Need Claim Assistance?</h2>
@@ -542,13 +573,88 @@
   <!-- SERVICE AREAS -->
   <div class="areas-section full-bleed">
     <div class="areas-inner">
-      <div class="areas-label">Service Areas</div>
+      <div class="areas-label" data-i18n="areas-label">Service Areas</div>
       <div class="areas-list">
         <div class="area-chip"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Tirunelveli</div>
         <div class="area-chip"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Tenkasi</div>
         <div class="area-chip"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Thoothukudi</div>
         <div class="area-chip area-chip-muted">Online across Tamil Nadu</div>
       </div>
+    </div>
+    <!-- News-style Tamil Nadu Map -->
+    <div class="tn-map-section" style="max-width:860px;margin:0 auto;padding:1rem 1rem 2.5rem;">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 560" width="100%" aria-label="Tamil Nadu map with callouts for Tenkasi, Tirunelveli and Thoothukudi districts" style="display:block;overflow:visible;filter:drop-shadow(0 4px 18px rgba(2,18,65,0.10))">
+        <defs>
+          <filter id="cs" x="-10%" y="-10%" width="125%" height="135%">
+            <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="rgba(2,18,65,0.14)"/>
+          </filter>
+        </defs>
+
+        <!-- ─── Tamil Nadu state outline ─── -->
+        <path d="M544,54 L536,83 L520,142 L504,202 L512,245 L496,288 L464,357 L448,374 L424,392 L392,400 L368,409 L336,452 L320,469 L304,452 L296,426 L288,383 L296,349 L264,288 L256,228 L240,194 L264,160 L280,177 L312,134 L344,91 L360,65 L424,57 L480,22 L504,29 Z"
+          fill="#d4e4f0" stroke="#7fa8c4" stroke-width="1.8" stroke-linejoin="round"/>
+        <text x="410" y="195" font-family="DM Sans,sans-serif" font-size="12" font-weight="700" fill="#021241" opacity="0.35" text-anchor="middle" letter-spacing="3">TAMIL NADU</text>
+
+        <!-- District halo glows -->
+        <circle cx="304" cy="411" r="22" fill="#4A90D9" fill-opacity="0.14"/>
+        <circle cx="336" cy="427" r="24" fill="#C9A84C" fill-opacity="0.14"/>
+        <circle cx="368" cy="419" r="22" fill="#E8534A" fill-opacity="0.14"/>
+
+        <!-- ═══ TENKASI – left callout ═══ -->
+        <line x1="181" y1="411" x2="288" y2="411" stroke="#4A90D9" stroke-width="1.5" stroke-dasharray="5,3"/>
+        <polygon points="285,406 285,416 295,411" fill="#4A90D9"/>
+        <rect x="5" y="378" width="172" height="70" rx="5" fill="white" filter="url(#cs)"/>
+        <rect x="5" y="378" width="5" height="70" rx="3" fill="#4A90D9"/>
+        <text x="20" y="397" font-family="DM Sans,sans-serif" font-size="11" font-weight="700" fill="#4A90D9" letter-spacing="0.5">TENKASI</text>
+        <text x="20" y="413" font-family="DM Sans,sans-serif" font-size="9.5" fill="#374060">Extended service</text>
+        <text x="20" y="427" font-family="DM Sans,sans-serif" font-size="9.5" fill="#374060">coverage area</text>
+        <text x="20" y="441" font-family="DM Sans,sans-serif" font-size="8" fill="#8a9ab5">Tenkasi District, TN</text>
+        <!-- Tenkasi pin -->
+        <circle cx="304" cy="411" r="6.5" fill="#4A90D9"/>
+        <circle cx="304" cy="411" r="2.5" fill="white"/>
+        <circle cx="304" cy="411" r="6.5" fill="none" stroke="#4A90D9" stroke-width="1.5">
+          <animate attributeName="r" values="6.5;16;6.5" dur="2.4s" repeatCount="indefinite"/>
+          <animate attributeName="stroke-opacity" values="0.85;0;0.85" dur="2.4s" repeatCount="indefinite"/>
+        </circle>
+
+        <!-- ═══ TIRUNELVELI – bottom callout ═══ -->
+        <line x1="336" y1="434" x2="336" y2="484" stroke="#C9A84C" stroke-width="1.5" stroke-dasharray="5,3"/>
+        <polygon points="331,488 341,488 336,478" fill="#C9A84C"/>
+        <rect x="236" y="491" width="196" height="62" rx="5" fill="white" filter="url(#cs)"/>
+        <rect x="236" y="491" width="5" height="62" rx="3" fill="#C9A84C"/>
+        <text x="252" y="511" font-family="DM Sans,sans-serif" font-size="11" font-weight="700" fill="#C9A84C" letter-spacing="0.5">TIRUNELVELI</text>
+        <text x="252" y="526" font-family="DM Sans,sans-serif" font-size="9.5" fill="#374060">Head office &amp; main</text>
+        <text x="252" y="540" font-family="DM Sans,sans-serif" font-size="9.5" fill="#374060">service area</text>
+        <!-- Tirunelveli pin -->
+        <circle cx="336" cy="427" r="6.5" fill="#C9A84C"/>
+        <circle cx="336" cy="427" r="2.5" fill="white"/>
+        <circle cx="336" cy="427" r="6.5" fill="none" stroke="#C9A84C" stroke-width="1.5">
+          <animate attributeName="r" values="6.5;16;6.5" dur="2.8s" begin="0.7s" repeatCount="indefinite"/>
+          <animate attributeName="stroke-opacity" values="0.85;0;0.85" dur="2.8s" begin="0.7s" repeatCount="indefinite"/>
+        </circle>
+
+        <!-- ═══ THOOTHUKUDI – right callout ═══ -->
+        <line x1="376" y1="419" x2="565" y2="419" stroke="#E8534A" stroke-width="1.5" stroke-dasharray="5,3"/>
+        <polygon points="568,415 568,423 558,419" fill="#E8534A"/>
+        <rect x="572" y="387" width="174" height="70" rx="5" fill="white" filter="url(#cs)"/>
+        <rect x="572" y="387" width="5" height="70" rx="3" fill="#E8534A"/>
+        <text x="587" y="406" font-family="DM Sans,sans-serif" font-size="11" font-weight="700" fill="#E8534A" letter-spacing="0.5">THOOTHUKUDI</text>
+        <text x="587" y="422" font-family="DM Sans,sans-serif" font-size="9.5" fill="#374060">Coastal district</text>
+        <text x="587" y="436" font-family="DM Sans,sans-serif" font-size="9.5" fill="#374060">service coverage</text>
+        <text x="587" y="450" font-family="DM Sans,sans-serif" font-size="8" fill="#8a9ab5">Thoothukudi District, TN</text>
+        <!-- Thoothukudi pin -->
+        <circle cx="368" cy="419" r="6.5" fill="#E8534A"/>
+        <circle cx="368" cy="419" r="2.5" fill="white"/>
+        <circle cx="368" cy="419" r="6.5" fill="none" stroke="#E8534A" stroke-width="1.5">
+          <animate attributeName="r" values="6.5;16;6.5" dur="2.4s" begin="1.4s" repeatCount="indefinite"/>
+          <animate attributeName="stroke-opacity" values="0.85;0;0.85" dur="2.4s" begin="1.4s" repeatCount="indefinite"/>
+        </circle>
+
+        <!-- ─── North indicator ─── -->
+        <text x="558" y="24" font-family="DM Sans,sans-serif" font-size="9" font-weight="700" fill="#374060" opacity="0.5" text-anchor="middle">N</text>
+        <polygon points="554,28 562,28 558,18" fill="#374060" fill-opacity="0.5"/>
+        <line x1="558" y1="30" x2="558" y2="46" stroke="#374060" stroke-width="1.2" stroke-opacity="0.5"/>
+      </svg>
     </div>
   </div>
 
@@ -587,7 +693,7 @@
     <div class="ftr-col">
       <h4>Stay Updated</h4>
       <span>Subscribe for insurance tips and updates</span>
-      <form class="sub-form" action="https://api.web3forms.com/submit" method="POST">
+      <form class="sub-form" id="newsletterForm">
         <input type="hidden" name="access_key" value="4d6c4d43-045a-4cbf-9cdc-58888b2b1374">
         <input type="hidden" name="subject" value="New Email Subscription - NMD Associates">
         <input type="hidden" name="from_name" value="NMD Associates Website">
@@ -595,16 +701,31 @@
         <input type="email" name="Email" placeholder="Your email address" required>
         <button type="submit">Subscribe</button>
       </form>
+      <div class="sub-success" id="subSuccess" style="display:none;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        Thanks! You're subscribed.
+      </div>
       <a href="privacy-policy.html" class="ftr-small-link">Privacy Policy</a>
+      <a href="terms-and-conditions.html" class="ftr-small-link">Terms &amp; Conditions</a>
       <span class="ftr-small-text">*Terms and Conditions Apply</span>
     </div>
   </div>
   <div class="ftr-bottom">
     <p>&copy; 2026 NMD Associates. All rights reserved.</p>
-    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="privacy-policy.html">Privacy Policy</a> · <a href="terms-and-conditions.html">Terms &amp; Conditions</a>
   </div>
 </footer>
 
+<div class="cursor-dot" aria-hidden="true"></div>
+<div class="cursor-ring" aria-hidden="true"></div>
+<!-- Sticky WhatsApp -->
+<a href="https://wa.me/917904699119" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
 <script src="assets/js/main.js"></script>
 </body>
 </html>
