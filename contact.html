@@ -21,6 +21,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="assets/css/style-apple.css?v=3">
 
+  <script>
+    (function() {
+      var url = window.location.origin + window.location.pathname;
+      var canonical = document.querySelector('link[rel="canonical"]');
+      if (canonical) canonical.href = url;
+      document.querySelectorAll('meta[property="og:url"], meta[property="twitter:url"]').forEach(function(m) { m.content = url; });
+    })();
+  </script>
+
   <!-- Load config -->
   <script src="assets/js/config.js"></script>
 
@@ -95,8 +104,17 @@
       <img src="assets/images/nmd-logo.svg" alt="NMD Associates Logo">
       <span class="logo-name">NMD Associates</span>
     </a>
-    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+    <button class="nav-burger" aria-label="Toggle navigation" aria-expanded="false">
+  <span class="burger-line"></span>
+  <span class="burger-line"></span>
+  <span class="burger-line"></span>
+</button>
     <div class="hdr-contacts">
+      <div class="lang-toggle" id="langToggle" role="button" aria-label="Switch language">
+        <span class="lang-btn active" data-lang="en">EN</span>
+        <span class="lang-btn" data-lang="ta">தமிழ்</span>
+      </div>
+      <div class="hdr-sep"></div>
       <a class="hdr-link" data-email data-email-text href="#">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
         <span class="hdr-link-short">Mail Us</span>
@@ -111,59 +129,61 @@
   </div>
   <nav>
     <ul class="nav-ul">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about-us.html">About Us</a></li>
-      <li><a href="services.html">Services</a></li>
-      <li><a href="video-gallery.html">Video Gallery</a></li>
-      <li><a href="contact.html" class="active">Contact</a></li>
-      <li><a href="privacy-policy.html">Privacy Policy</a></li>
+      <span class="nav-pill" aria-hidden="true"></span>
+      <li><a href="index.html" data-i18n="nav-home">Home</a></li>
+      <li><a href="about-us.html" data-i18n="nav-about">About Us</a></li>
+      <li><a href="services.html" data-i18n="nav-services">Services</a></li>
+      <li><a href="video-gallery.html" data-i18n="nav-video">Video Gallery</a></li>
+      <li><a href="contact.html" class="active" data-i18n="nav-contact">Contact</a></li>
+      <li><a href="privacy-policy.html" data-i18n="nav-privacy">Privacy Policy</a></li>
+      <li><a href="terms-and-conditions.html" data-i18n="nav-terms">Terms</a></li>
     </ul>
   </nav>
 </header>
 
 <main>
   <section class="page-hero">
-    <div class="sec-label">Reach Out</div>
-    <h1>Contact NMD Associates</h1>
-    <p>Get a free, no-obligation insurance consultation. We typically respond within a few hours.</p>
+    <div class="sec-label" data-i18n="contact-sec-label">Reach Out</div>
+    <h1 data-i18n="contact-h1">Contact NMD Associates</h1>
+    <p data-i18n="contact-hero-p">Get a free, no-obligation insurance consultation. We typically respond within a few hours.</p>
   </section>
 
   <section>
     <div class="contact-grid">
       <div class="contact-info fade-up">
-        <h3>Get in Touch</h3>
+        <h3 data-i18n="contact-touch-h3">Get in Touch</h3>
         <div class="contact-block">
-          <h4>Phone</h4>
+          <h4 data-i18n="contact-phone">Phone</h4>
           <a href="tel:+919788839825">+91 97888 39825</a>
           <a href="tel:+917904699119">+91 79046 99119</a>
         </div>
         <div class="contact-block">
-          <h4>Email</h4>
+          <h4 data-i18n="contact-email">Email</h4>
           <a data-email data-email-text href="#"></a>
         </div>
         <div class="contact-block">
-          <h4>WhatsApp</h4>
+          <h4 data-i18n="contact-whatsapp">WhatsApp</h4>
           <a href="https://wa.me/917904699119?text=Hello%20NMD%20Associates%2C%20I%20need%20insurance%20guidance." target="_blank" rel="noopener">Chat on WhatsApp</a>
         </div>
         <div class="contact-block">
-          <h4>Service Areas</h4>
+          <h4 data-i18n="contact-areas">Service Areas</h4>
           <p>Tirunelveli District</p>
           <p>Tenkasi District</p>
           <p>Thoothukudi District</p>
           <p style="font-style:italic;font-size:0.85rem">Online consultation across Tamil Nadu</p>
         </div>
         <div class="contact-block">
-          <h4>Office Hours</h4>
-          <p>Monday – Saturday: 9:00 AM – 6:00 PM IST</p>
-          <p>Sunday: Closed</p>
+          <h4 data-i18n="contact-hours">Office Hours</h4>
+          <p data-i18n="contact-hours-p1">Monday – Saturday: 9:00 AM – 6:00 PM IST</p>
+          <p data-i18n="contact-hours-p2">Sunday: Closed</p>
         </div>
         <div style="margin-top:2rem;display:flex;flex-direction:column;gap:0.75rem">
-          <a href="tel:+919788839825" class="btn btn-primary" style="justify-content:center">Call Now</a>
-          <a href="https://wa.me/917904699119?text=Hello%20NMD%20Associates%2C%20I%20need%20insurance%20guidance." target="_blank" rel="noopener" class="btn btn-outline" style="justify-content:center">WhatsApp Consultation</a>
+          <a href="tel:+919788839825" class="btn btn-primary" style="justify-content:center" data-i18n="contact-call-btn">Call Now</a>
+          <a href="https://wa.me/917904699119?text=Hello%20NMD%20Associates%2C%20I%20need%20insurance%20guidance." target="_blank" rel="noopener" class="btn btn-outline" style="justify-content:center" data-i18n="contact-wa-btn">WhatsApp Consultation</a>
         </div>
       </div>
       <div class="contact-form-card fade-up">
-        <h3>Send Us a Message</h3>
+        <h3 data-i18n="contact-form-h3">Send Us a Message</h3>
         <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
           <input type="hidden" name="access_key" value="4d6c4d43-045a-4cbf-9cdc-58888b2b1374">
           <input type="hidden" name="subject" value="New Contact Form - NMD Associates">
@@ -171,23 +191,23 @@
           <input type="hidden" name="redirect" value="https://nmdassociates.in/thank-you.html">
           <input type="checkbox" name="botcheck" style="display: none;">
           <div class="contact-form-group">
-            <label for="c-name">Full Name</label>
+            <label for="c-name" data-i18n="form-name">Full Name</label>
             <input type="text" id="c-name" name="Full Name" placeholder="Your full name" required>
           </div>
           <div class="contact-form-group">
-            <label for="c-phone">Mobile Number</label>
+            <label for="c-phone" data-i18n="form-phone">Mobile Number</label>
             <input type="tel" id="c-phone" name="Mobile" placeholder="+91 98765 43210" required>
           </div>
           <div class="contact-form-group">
-            <label for="c-email">Email Address</label>
+            <label for="c-email" data-i18n="contact-form-email">Email Address</label>
             <input type="email" id="c-email" name="Email" placeholder="your@email.com">
           </div>
           <div class="contact-form-group">
-            <label for="c-city">City</label>
+            <label for="c-city" data-i18n="form-city">City</label>
             <input type="text" id="c-city" name="City" placeholder="Your city" required>
           </div>
           <div class="contact-form-group">
-            <label for="c-type">Insurance Enquiry Type</label>
+            <label for="c-type" data-i18n="contact-form-type">Insurance Enquiry Type</label>
             <select id="c-type" name="Enquiry Type">
               <option value="" disabled selected>Select type</option>
               <option>Life Insurance</option>
@@ -199,10 +219,10 @@
             </select>
           </div>
           <div class="contact-form-group">
-            <label for="c-msg">Message</label>
+            <label for="c-msg" data-i18n="form-msg">Message</label>
             <textarea id="c-msg" name="Message" placeholder="Tell us how we can help you..."></textarea>
           </div>
-          <button type="submit" class="contact-submit">Send Message</button>
+          <button type="submit" class="contact-submit" data-i18n="contact-submit">Send Message</button>
         </form>
       </div>
     </div>
@@ -236,11 +256,21 @@
         <button type="submit">Subscribe</button>
       </form>
       <a href="privacy-policy.html" class="ftr-small-link">Privacy Policy</a>
+      <a href="terms-and-conditions.html" class="ftr-small-link">Terms &amp; Conditions</a>
     </div>
   </div>
-  <div class="ftr-bottom"><p>&copy; 2026 NMD Associates. All rights reserved.</p><a href="privacy-policy.html">Privacy Policy</a></div>
+  <div class="ftr-bottom"><p>&copy; 2026 NMD Associates. All rights reserved.</p><a href="privacy-policy.html">Privacy Policy</a> · <a href="terms-and-conditions.html">Terms &amp; Conditions</a></div>
 </footer>
 
+<div class="cursor-dot" aria-hidden="true"></div>
+<div class="cursor-ring" aria-hidden="true"></div>
+<!-- Sticky WhatsApp -->
+<a href="https://wa.me/917904699119" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
 <script src="assets/js/main.js"></script>
 </body>
 </html>
