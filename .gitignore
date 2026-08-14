@@ -1,5 +1,5 @@
 # Local config (contains API keys - DO NOT COMMIT)
-assets/js/config.js
+website/assets/js/config.js
 
 # OS files
 .DS_Store

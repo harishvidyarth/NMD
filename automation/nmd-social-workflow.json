@@ -1,0 +1,288 @@
+{
+  "id": "nmd-social-pipeline",
+  "name": "NMD WhatsApp to Instagram + Facebook + LinkedIn",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": { "interval": [ { "field": "minutes", "minutesInterval": 15 } ] }
+      },
+      "id": "trg-schedule",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [ -80, -40 ]
+    },
+    {
+      "parameters": {},
+      "id": "trg-manual",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [ -80, 160 ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "nmd-sync",
+        "responseMode": "onReceived"
+      },
+      "id": "trg-webhook",
+      "name": "Webhook Force Sync",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [ -80, 360 ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Single entry point for all three triggers. Point the next node at your WhatsApp source; here we pass through.\nreturn [{ json: { source: 'trigger', fetchedAt: new Date().toISOString() } }];"
+      },
+      "id": "normalize",
+      "name": "Normalize Input",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [ 200, 160 ]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://graph.facebook.com/v21.0/<PHONE_NUMBER_ID>/messages",
+        "options": {}
+      },
+      "id": "fetch-wa",
+      "name": "Fetch WhatsApp (Graph API)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ 440, 160 ],
+      "notes": "Approach A: list recent messages; filter type image downstream. Attach your System User token credential."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Per-post dedup: create a per-platform entry for any post not seen before.\nconst store = $getWorkflowStaticData('global');\nstore.published = store.published || {};\nconst out = [];\nfor (const item of $input.all()) {\n  const id = item.json.id || item.json.imageUrl;\n  if (!id) continue;\n  if (!store.published[id]) {\n    store.published[id] = { instagram: false, facebook: false, linkedin: false };\n  }\n  out.push({ json: { ...item.json, dedupId: id } });\n}\nreturn out;"
+      },
+      "id": "dedup",
+      "name": "Dedup Check",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [ 680, 160 ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://<PROJECT>.supabase.co/storage/v1/object/nmd-social/<FILENAME>",
+        "options": {}
+      },
+      "id": "host",
+      "name": "Upload to Public Host",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ 920, 160 ],
+      "notes": "Upload the media binary; use the returned public object URL as publicUrl below."
+    },
+    {
+      "parameters": {
+        "jsCode": "// IF: skip if already published to Instagram this post.\nconst store = $getWorkflowStaticData('global');\nreturn $input.all().filter(item => !(store.published[item.json.dedupId] || {}).instagram);"
+      },
+      "id": "ig-if",
+      "name": "IF Instagram Pending",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [ 1160, -80 ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v21.0/<IG_USER_ID>/media",
+        "sendBody": true,
+        "bodyParameters": { "parameters": [
+          { "name": "image_url", "value": "={{ $json.publicUrl }}" },
+          { "name": "caption", "value": "={{ $json.caption }}" }
+        ] },
+        "options": {}
+      },
+      "id": "ig-container",
+      "name": "IG Create Container",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ 1400, -80 ],
+      "notes": "Attach Instagram System User token credential."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v21.0/<IG_USER_ID>/media_publish",
+        "sendBody": true,
+        "bodyParameters": { "parameters": [
+          { "name": "creation_id", "value": "={{ $json.id }}" }
+        ] },
+        "options": {}
+      },
+      "id": "ig-publish",
+      "name": "IG Publish",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ 1640, -80 ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Response from IG Publish replaced item.json, so pull dedupId/caption back from the pre-call state and add the success flag.\nconst upstream = $('IF Instagram Pending').all();\nreturn $input.all().map((item, i) => ({ json: { ...upstream[i].json, igPublished: true } }));"
+      },
+      "id": "ig-mark",
+      "name": "Mark IG Published",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [ 1880, -80 ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// IF: skip if already published to Facebook this post.\nconst store = $getWorkflowStaticData('global');\nreturn $input.all().filter(item => !(store.published[item.json.dedupId] || {}).facebook);"
+      },
+      "id": "fb-if",
+      "name": "IF Facebook Pending",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [ 1160, 160 ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v21.0/<PAGE_ID>/photos",
+        "sendBody": true,
+        "bodyParameters": { "parameters": [
+          { "name": "url", "value": "={{ $json.publicUrl }}" },
+          { "name": "caption", "value": "={{ $json.caption }}" }
+        ] },
+        "options": {}
+      },
+      "id": "fb-publish",
+      "name": "FB Publish Photo",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ 1400, 160 ],
+      "notes": "Attach Facebook Page Access Token credential (see Section 6b)."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Response from FB Publish Photo replaced item.json, so pull dedupId/caption back from the pre-call state and add the success flag.\nconst upstream = $('IF Facebook Pending').all();\nreturn $input.all().map((item, i) => ({ json: { ...upstream[i].json, fbPublished: true } }));"
+      },
+      "id": "fb-mark",
+      "name": "Mark FB Published",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [ 1640, 160 ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// IF: skip if already published to LinkedIn this post.\nconst store = $getWorkflowStaticData('global');\nreturn $input.all().filter(item => !(store.published[item.json.dedupId] || {}).linkedin);"
+      },
+      "id": "li-if",
+      "name": "IF LinkedIn Pending",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [ 1160, 400 ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.linkedin.com/rest/images?action=initializeUpload",
+        "sendBody": true,
+        "jsonParameters": true,
+        "bodyParametersJson": "={{ { initializeUploadRequest: { owner: 'urn:li:organization:<ORG_ID>' } } }}",
+        "options": {}
+      },
+      "id": "li-init",
+      "name": "LI Init Upload",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ 1400, 400 ],
+      "notes": "Attach LinkedIn OAuth2 credential."
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "={{ $json.value.uploadUrl }}",
+        "sendBinaryData": true,
+        "options": {}
+      },
+      "id": "li-upload",
+      "name": "LI Upload Binary",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ 1640, 400 ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.linkedin.com/rest/posts",
+        "sendBody": true,
+        "jsonParameters": true,
+        "bodyParametersJson": "={{ { author: 'urn:li:organization:<ORG_ID>', commentary: $json.caption, visibility: 'PUBLIC', distribution: { feedDistribution: 'MAIN_FEED' }, content: { media: { id: $json.imageAssetUrn } }, lifecycleState: 'PUBLISHED' } }}",
+        "options": {}
+      },
+      "id": "li-publish",
+      "name": "LI Publish Post",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ 1880, 400 ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Response from LI Publish Post replaced item.json, so pull dedupId/caption back from the pre-call state and add the success flag.\nconst upstream = $('IF LinkedIn Pending').all();\nreturn $input.all().map((item, i) => ({ json: { ...upstream[i].json, liPublished: true } }));"
+      },
+      "id": "li-mark",
+      "name": "Mark LI Published",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [ 2120, 400 ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "numberInputs": 3,
+        "options": {}
+      },
+      "id": "merge",
+      "name": "Merge (Wait For All 3)",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [ 2360, 160 ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Save per-platform flags only for branches that actually ran and succeeded this cycle.\nconst store = $getWorkflowStaticData('global');\nfor (const item of $input.all()) {\n  const id = item.json.dedupId;\n  if (!id || !store.published[id]) continue;\n  if (item.json.igPublished) store.published[id].instagram = true;\n  if (item.json.fbPublished) store.published[id].facebook = true;\n  if (item.json.liPublished) store.published[id].linkedin = true;\n}\nreturn $input.all();"
+      },
+      "id": "save-log",
+      "name": "Save Published Flags",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [ 2600, 160 ]
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": { "main": [ [ { "node": "Normalize Input", "type": "main", "index": 0 } ] ] },
+    "Manual Trigger": { "main": [ [ { "node": "Normalize Input", "type": "main", "index": 0 } ] ] },
+    "Webhook Force Sync": { "main": [ [ { "node": "Normalize Input", "type": "main", "index": 0 } ] ] },
+    "Normalize Input": { "main": [ [ { "node": "Fetch WhatsApp (Graph API)", "type": "main", "index": 0 } ] ] },
+    "Fetch WhatsApp (Graph API)": { "main": [ [ { "node": "Dedup Check", "type": "main", "index": 0 } ] ] },
+    "Dedup Check": { "main": [ [ { "node": "Upload to Public Host", "type": "main", "index": 0 } ] ] },
+    "Upload to Public Host": { "main": [ [
+      { "node": "IF Instagram Pending", "type": "main", "index": 0 },
+      { "node": "IF Facebook Pending", "type": "main", "index": 0 },
+      { "node": "IF LinkedIn Pending", "type": "main", "index": 0 }
+    ] ] },
+    "IF Instagram Pending": { "main": [ [ { "node": "IG Create Container", "type": "main", "index": 0 } ] ] },
+    "IG Create Container": { "main": [ [ { "node": "IG Publish", "type": "main", "index": 0 } ] ] },
+    "IG Publish": { "main": [ [ { "node": "Mark IG Published", "type": "main", "index": 0 } ] ] },
+    "Mark IG Published": { "main": [ [ { "node": "Merge (Wait For All 3)", "type": "main", "index": 0 } ] ] },
+    "IF Facebook Pending": { "main": [ [ { "node": "FB Publish Photo", "type": "main", "index": 0 } ] ] },
+    "FB Publish Photo": { "main": [ [ { "node": "Mark FB Published", "type": "main", "index": 0 } ] ] },
+    "Mark FB Published": { "main": [ [ { "node": "Merge (Wait For All 3)", "type": "main", "index": 1 } ] ] },
+    "IF LinkedIn Pending": { "main": [ [ { "node": "LI Init Upload", "type": "main", "index": 0 } ] ] },
+    "LI Init Upload": { "main": [ [ { "node": "LI Upload Binary", "type": "main", "index": 0 } ] ] },
+    "LI Upload Binary": { "main": [ [ { "node": "LI Publish Post", "type": "main", "index": 0 } ] ] },
+    "LI Publish Post": { "main": [ [ { "node": "Mark LI Published", "type": "main", "index": 0 } ] ] },
+    "Mark LI Published": { "main": [ [ { "node": "Merge (Wait For All 3)", "type": "main", "index": 2 } ] ] },
+    "Merge (Wait For All 3)": { "main": [ [ { "node": "Save Published Flags", "type": "main", "index": 0 } ] ] }
+  },
+  "settings": { "executionOrder": "v1" }
+}

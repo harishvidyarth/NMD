@@ -43,6 +43,47 @@
     })();
   </script>
 
+  <!-- Structured Data – LocalBusiness -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "InsuranceAgency",
+    "name": "NMD Associates",
+    "description": "Trusted insurance advisory service with 16+ years of experience helping families choose Life, Health, and Motor Insurance across Tirunelveli, Tenkasi and Thoothukudi.",
+    "url": "https://nmdassociates.vercel.app",
+    "telephone": ["+919788839825", "+917904699119"],
+    "foundingDate": "2010",
+    "founder": { "@type": "Person", "name": "M. Muthukumaran" },
+    "areaServed": ["Tirunelveli", "Tenkasi", "Thoothukudi", "Tamil Nadu"],
+    "address": {
+      "@type": "PostalAddress",
+      "addressRegion": "Tamil Nadu",
+      "addressCountry": "IN"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "bestRating": "5",
+      "ratingCount": "100"
+    },
+    "sameAs": [
+      "https://www.facebook.com/profile.php?id=61588378240900",
+      "https://www.instagram.com/nmdassociates/",
+      "https://www.youtube.com/@NMDAssociates"
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Insurance Services",
+      "itemListElement": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Life Insurance" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Health Insurance" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Motor Insurance" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Insurance Advisory" } }
+      ]
+    }
+  }
+  </script>
+
   <!-- Load config first -->
   <script src="assets/js/config.js"></script>
 
