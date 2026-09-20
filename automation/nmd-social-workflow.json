@@ -187,7 +187,7 @@
         "url": "https://api.linkedin.com/rest/images?action=initializeUpload",
         "sendBody": true,
         "jsonParameters": true,
-        "bodyParametersJson": "={{ { initializeUploadRequest: { owner: 'urn:li:organization:<ORG_ID>' } } }}",
+        "bodyParametersJson": "={{ { initializeUploadRequest: { owner: 'urn:li:organization:143243127' } } }}",
         "options": {}
       },
       "id": "li-init",
@@ -216,7 +216,7 @@
         "url": "https://api.linkedin.com/rest/posts",
         "sendBody": true,
         "jsonParameters": true,
-        "bodyParametersJson": "={{ { author: 'urn:li:organization:<ORG_ID>', commentary: $json.caption, visibility: 'PUBLIC', distribution: { feedDistribution: 'MAIN_FEED' }, content: { media: { id: $json.imageAssetUrn } }, lifecycleState: 'PUBLISHED' } }}",
+        "bodyParametersJson": "={{ { author: 'urn:li:organization:143243127', commentary: $json.caption, visibility: 'PUBLIC', distribution: { feedDistribution: 'MAIN_FEED' }, content: { media: { id: $json.imageAssetUrn } }, lifecycleState: 'PUBLISHED' } }}",
         "options": {}
       },
       "id": "li-publish",
