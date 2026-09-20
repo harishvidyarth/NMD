@@ -1,10 +1,26 @@
-# LinkedIn Company Page — fresh setup for NMD Associates
+# LinkedIn Company Page — setup for NMD Associates
 
 Facebook Page and Instagram Business account already exist (System User
-token setup for those is in `SOCIAL_AUTOMATION.md` Sections 6a/6b). This
-doc covers the one piece that's still missing: a **LinkedIn Company Page**
-for NMD Associates, created fresh, plus API access so the pipeline's
-LinkedIn branch can actually publish to it.
+token setup for those is in `SOCIAL_AUTOMATION.md` Sections 6a/6b). The
+**LinkedIn Company Page itself now exists** (`NMD Associates`, org ID
+`143243127`, verified `linkedin.com/company/143243127`) — Steps 1-2 below
+are kept for reference only.
+
+**Steps 3-6 (the original raw-API path) are superseded.** A LinkedIn
+Developer app for this org (`NMD Social Automation`, Client ID
+`865vp2opy4mm6c`) was created and its Community Management API request came
+back **"Access denied — Identity vetting failed"**: LinkedIn couldn't
+verify NMD Associates as a legally registered, active entity. Appealing
+needs business registration documents that aren't on hand yet — see the
+`click here` link on the app's Products page (`Access was denied` popup)
+for the appeal form (`linkedin.com/help/linkedin/ask/dsapi`, Form Type
+"Vetting Appeal") if/when those documents are available.
+
+**Until then, the pipeline posts to LinkedIn via Zapier instead** — see
+"Zapier route" below. This sidesteps LinkedIn Developer Portal vetting
+entirely: Zapier holds its own already-approved LinkedIn Pages
+integration, and posting only needs OAuth login as page admin through
+Zapier's UI, not a self-owned, vetted developer app.
 
 These steps need a human logged into LinkedIn with business verification —
 I can't perform them; this is a checklist for whoever does.
@@ -33,51 +49,48 @@ You're automatically the page's first admin (Super Admin) as the creator.
 If someone else at NMD needs access: Page → **Admin tools → Manage admins**
 → add them by name, assign **Content Admin** at minimum (needed to post).
 
-## 3. Create a LinkedIn Developer app for API access
+## 3-6. Superseded — raw LinkedIn API path (kept for future reference)
 
-1. Go to [developer.linkedin.com](https://developer.linkedin.com/) → **My apps**
-   → **Create app**.
-2. Link it to the Company Page created in Step 1 (LinkedIn requires the app
-   be associated with a Page you admin).
-3. Under **Products**, request access to the **Community Management API** —
-   this is the product that allows posting to an organization's feed.
-   **This requires LinkedIn's review and approval, which can take a few
-   days** — apply for this early, it's the long pole before the LinkedIn
-   branch of the pipeline can go live. (Instagram/Facebook, by contrast, get
-   instant access via a Meta System User token — no such wait there.)
-4. Once approved, note the **Client ID** and **Client Secret** from the
-   app's Auth tab.
+The steps below are what you'd do if the Community Management API vetting
+appeal (see top of doc) later succeeds. Not needed for the current Zapier
+route.
 
-## 4. Run the OAuth flow once, get tokens
+1. [developer.linkedin.com](https://developer.linkedin.com/) → **My apps**
+   → app linked to the Company Page → **Products** → request
+   **Community Management API** (needs LinkedIn review, days-long, and
+   passing identity vetting).
+2. Once approved: Auth tab → add scopes `w_organization_social`,
+   `r_organization_social` → run OAuth 2.0 3-legged flow (detail in
+   `SOCIAL_AUTOMATION.md` Section 6c) → create a native **LinkedIn OAuth2**
+   credential in n8n.
+3. Organization URN: `urn:li:organization:143243127` (already known, no
+   lookup needed).
+4. Tokens expire ~60 days — no permanent option like Meta's System User
+   tokens; set a calendar reminder to re-run OAuth before expiry.
+5. Restore the three-node LinkedIn HTTP Request chain (Init Upload / Upload
+   Binary / Publish Post — see git history prior to the Zapier switch for
+   the exact node JSON) in place of the single "LI Post via Zapier" node.
 
-1. In the app's Auth tab, add scopes: `w_organization_social`,
-   `r_organization_social`.
-2. Run LinkedIn's standard OAuth 2.0 3-legged authorization flow (full
-   request/response detail in `SOCIAL_AUTOMATION.md` Section 6c) to get an
-   **access token** and **refresh token**.
-3. In n8n, create a **LinkedIn OAuth2** credential (n8n has a native
-   LinkedIn credential type) using the Client ID/Secret from Step 3 — n8n
-   drives the OAuth flow itself through its UI, no manual token copy-paste
-   needed if you use the native credential type.
+## Zapier route (current)
 
-## 5. Find the organization URN
-
-The workflow's LinkedIn nodes need `urn:li:organization:<ORG_ID>`. Find the
-numeric ID: Company Page → **Admin tools** → the page's admin URL contains
-it (`linkedin.com/company/<ORG_ID>/admin/`), or call
-`GET https://api.linkedin.com/rest/organizationAcls?q=roleAssignee` with the
-new token to list organizations you administer.
-
-## 6. Token expiry — the recurring manual step
-
-LinkedIn access tokens expire in ~60 days. Unlike Meta's permanent System
-User tokens, there's no "set it once forever" option here. Set a calendar
-reminder to re-run the OAuth flow (Step 4) before expiry, or rely on the
-refresh token if n8n's native credential type handles renewal automatically.
+1. Create a free Zapier account (or use an existing one).
+2. Create a Zap: trigger **Webhooks by Zapier → Catch Hook**. Copy the
+   generated webhook URL.
+3. Action: **LinkedIn Pages → Share an Update**. Authorize Zapier against
+   LinkedIn as a Company Page admin (OAuth login through Zapier's UI —
+   no LinkedIn Developer Portal, no vetting). Map the update text to the
+   webhook's `caption` field and the image to the webhook's `publicUrl`
+   field.
+4. Turn the Zap on.
+5. In `nmd-social-workflow.json`, paste the webhook URL from Step 2 into
+   the `<ZAPIER_WEBHOOK_URL>` placeholder on the **LI Post via Zapier**
+   node. No LinkedIn credential needs attaching in n8n for this branch.
+6. Zapier free tier caps at 100 tasks/month — fine for a small business
+   posting cadence; upgrade only if volume grows.
 
 ## Once this is done
 
-Update the two `<ORG_ID>` placeholders in `nmd-social-workflow.json` (LI
-Init Upload and LI Publish Post nodes) and attach the LinkedIn OAuth2
-credential to the three LinkedIn HTTP Request nodes — then the LinkedIn
-branch is live alongside the already-working Instagram/Facebook branches.
+Paste the Zapier webhook URL into the `<ZAPIER_WEBHOOK_URL>` placeholder on
+the "LI Post via Zapier" node in `nmd-social-workflow.json` — then the
+LinkedIn branch is live alongside the already-working Instagram/Facebook
+branches, with no LinkedIn API vetting dependency.

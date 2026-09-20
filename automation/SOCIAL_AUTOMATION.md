@@ -277,14 +277,45 @@ token — generate it from the same Meta Business Settings:
 n8n node: single HTTP Request node, `POST`, with the Page Access Token
 stored as an n8n Credential.
 
-### 6c. LinkedIn Company Page (Community Management API, three-step)
+### 6c. LinkedIn Company Page — via Zapier (current implementation)
 
-LinkedIn's image posting is a three-call sequence:
+The NMD Social Automation LinkedIn Developer app (Client ID
+`865vp2opy4mm6c`) requested the Community Management API and got
+**"Access denied — Identity vetting failed"**: LinkedIn couldn't verify
+NMD Associates as a legally registered, active entity, and the appeal
+needs registration documents not currently on hand (see `ACCOUNT_SETUP.md`
+for the appeal path).
+
+So the pipeline's LinkedIn branch is a single HTTP Request node
+(`LI Post via Zapier`) that POSTs `{ publicUrl, caption, dedupId }` as JSON
+to a Zapier webhook — no LinkedIn credential attached in n8n at all:
+
+```
+POST <ZAPIER_WEBHOOK_URL>
+Body: { "publicUrl": "<image url>", "caption": "<caption text>", "dedupId": "<id>" }
+```
+
+On the Zapier side: a Zap with trigger **Webhooks by Zapier → Catch Hook**
+feeding action **LinkedIn Pages → Share an Update**, mapping `caption` and
+`publicUrl` from the webhook payload. The Zap's LinkedIn connection is
+authorized once via Zapier's own UI (OAuth login as Company Page admin) —
+this uses Zapier's already-approved LinkedIn Pages integration, so it
+completely bypasses LinkedIn Developer Portal vetting. Free tier (100
+tasks/month) is enough for this posting cadence.
+
+Setup, one time: create the Zap as above, paste its webhook URL into the
+`<ZAPIER_WEBHOOK_URL>` placeholder on the `LI Post via Zapier` node.
+
+### 6c-alt. Raw LinkedIn API path (fallback, once vetting appeal succeeds)
+
+If the Community Management API vetting appeal (see `ACCOUNT_SETUP.md`)
+succeeds later, LinkedIn's own image posting is a three-call sequence that
+can replace the Zapier node:
 
 1. **Initialize upload:**
    ```
    POST https://api.linkedin.com/rest/images?action=initializeUpload
-   Body: { "initializeUploadRequest": { "owner": "urn:li:organization:<ORG_ID>" } }
+   Body: { "initializeUploadRequest": { "owner": "urn:li:organization:143243127" } }
    ```
    Returns an `uploadUrl` and an `image` asset URN.
 2. **Upload the binary:**
@@ -296,7 +327,7 @@ LinkedIn's image posting is a three-call sequence:
    ```
    POST https://api.linkedin.com/rest/posts
    Body: {
-     "author": "urn:li:organization:<ORG_ID>",
+     "author": "urn:li:organization:143243127",
      "commentary": "<caption text>",
      "visibility": "PUBLIC",
      "distribution": { "feedDistribution": "MAIN_FEED" },
@@ -306,27 +337,11 @@ LinkedIn's image posting is a three-call sequence:
    ```
 
 n8n nodes: three chained HTTP Request nodes (init → upload → post), each
-using the LinkedIn OAuth2 credential.
-
-LinkedIn Developer Console setup (one time):
-1. Create an app at [developer.linkedin.com](https://developer.linkedin.com/),
-   linked to the **NMD Associates Company Page**.
-2. Request access to the **Community Management API** product (requires
-   LinkedIn's approval — can take a few days; needed for organization
-   posting).
-3. Get Company Page **admin** to approve the app in Page settings.
-4. OAuth scopes needed: `w_organization_social`, `r_organization_social`.
-5. Run the standard LinkedIn OAuth 2.0 3-legged flow once to get an access
-   token + refresh token; store both as an n8n OAuth2 Credential (n8n
-   supports LinkedIn's OAuth2 flow natively — use the built-in LinkedIn
-   credential type where possible).
-
-**Token expiry — the one manual step this pipeline can't fully automate:**
-LinkedIn access tokens expire in ~60 days (refresh tokens last longer but
-still expire, unlike Meta's non-expiring System User tokens). Set a calendar
-reminder to re-run the OAuth flow before expiry, or, if using n8n's native
-LinkedIn credential type, let n8n handle the refresh-token exchange
-automatically where supported.
+using a LinkedIn OAuth2 credential (`w_organization_social`,
+`r_organization_social` scopes; standard 3-legged OAuth flow; n8n's native
+LinkedIn credential type handles this). Tokens expire ~60 days — set a
+calendar reminder to re-authorize, unlike Meta's non-expiring System User
+tokens.
 
 ---
 
@@ -341,10 +356,12 @@ n8n Credential you attach after import.
 
 After importing:
 1. Open each HTTP Request node and attach the right **Credential** (Meta
-   System User token, Meta Page token, LinkedIn OAuth2, Supabase key). Never
-   hardcode tokens in URLs.
-2. Replace every `<PLACEHOLDER>` (`<PHONE_NUMBER_ID>`, `<IG_USER_ID>`,
-   `<PAGE_ID>`, `<ORG_ID>`, `<PROJECT>`, `<FILENAME>`).
+   System User token, Meta Page token, Supabase key). Never hardcode tokens
+   in URLs. The LinkedIn branch needs no n8n credential — it posts through
+   a Zapier webhook instead (see Section 6c).
+2. Replace every remaining `<PLACEHOLDER>` (`<PHONE_NUMBER_ID>`,
+   `<IG_USER_ID>`, `<PROJECT>`, `<FILENAME>`, `<ZAPIER_WEBHOOK_URL>`).
+   `<PAGE_ID>` and `<ORG_ID>` are already filled in.
 3. In "Fetch WhatsApp", add filtering so only image messages with a caption
    proceed (an IF node or a few lines in the Code node).
 4. Test with the **Manual Trigger** first, using one known post, before

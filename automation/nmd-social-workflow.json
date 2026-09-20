@@ -69,7 +69,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "https://<PROJECT>.supabase.co/storage/v1/object/nmd-social/<FILENAME>",
+        "url": "={{ 'https://rqdieyainwiyjupgjcsd.supabase.co/storage/v1/object/nmd-social/' + $json.dedupId + '.jpg' }}",
         "options": {}
       },
       "id": "host",
@@ -184,50 +184,22 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "https://api.linkedin.com/rest/images?action=initializeUpload",
+        "url": "<ZAPIER_WEBHOOK_URL>",
         "sendBody": true,
         "jsonParameters": true,
-        "bodyParametersJson": "={{ { initializeUploadRequest: { owner: 'urn:li:organization:143243127' } } }}",
+        "bodyParametersJson": "={{ { publicUrl: $json.publicUrl, caption: $json.caption, dedupId: $json.dedupId } }}",
         "options": {}
       },
-      "id": "li-init",
-      "name": "LI Init Upload",
+      "id": "li-zapier",
+      "name": "LI Post via Zapier",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [ 1400, 400 ],
-      "notes": "Attach LinkedIn OAuth2 credential."
+      "notes": "Paste your Zapier 'Catch Hook' webhook URL. No LinkedIn credential needed here — the Zap's own LinkedIn Pages connection (authorized once via Zapier's UI as page admin) does the posting, bypassing LinkedIn Developer Portal vetting entirely. Zap: Webhooks by Zapier (trigger) -> LinkedIn Pages: Share an Update (action), mapping caption + publicUrl."
     },
     {
       "parameters": {
-        "method": "PUT",
-        "url": "={{ $json.value.uploadUrl }}",
-        "sendBinaryData": true,
-        "options": {}
-      },
-      "id": "li-upload",
-      "name": "LI Upload Binary",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [ 1640, 400 ]
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://api.linkedin.com/rest/posts",
-        "sendBody": true,
-        "jsonParameters": true,
-        "bodyParametersJson": "={{ { author: 'urn:li:organization:143243127', commentary: $json.caption, visibility: 'PUBLIC', distribution: { feedDistribution: 'MAIN_FEED' }, content: { media: { id: $json.imageAssetUrn } }, lifecycleState: 'PUBLISHED' } }}",
-        "options": {}
-      },
-      "id": "li-publish",
-      "name": "LI Publish Post",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [ 1880, 400 ]
-    },
-    {
-      "parameters": {
-        "jsCode": "// Response from LI Publish Post replaced item.json, so pull dedupId/caption back from the pre-call state and add the success flag.\nconst upstream = $('IF LinkedIn Pending').all();\nreturn $input.all().map((item, i) => ({ json: { ...upstream[i].json, liPublished: true } }));"
+        "jsCode": "// Response from the Zapier webhook replaced item.json, so pull dedupId/caption back from the pre-call state and add the success flag.\nconst upstream = $('IF LinkedIn Pending').all();\nreturn $input.all().map((item, i) => ({ json: { ...upstream[i].json, liPublished: true } }));"
       },
       "id": "li-mark",
       "name": "Mark LI Published",
@@ -278,10 +250,8 @@
     "IF Facebook Pending": { "main": [ [ { "node": "FB Publish Photo", "type": "main", "index": 0 } ] ] },
     "FB Publish Photo": { "main": [ [ { "node": "Mark FB Published", "type": "main", "index": 0 } ] ] },
     "Mark FB Published": { "main": [ [ { "node": "Merge (Wait For All 3)", "type": "main", "index": 1 } ] ] },
-    "IF LinkedIn Pending": { "main": [ [ { "node": "LI Init Upload", "type": "main", "index": 0 } ] ] },
-    "LI Init Upload": { "main": [ [ { "node": "LI Upload Binary", "type": "main", "index": 0 } ] ] },
-    "LI Upload Binary": { "main": [ [ { "node": "LI Publish Post", "type": "main", "index": 0 } ] ] },
-    "LI Publish Post": { "main": [ [ { "node": "Mark LI Published", "type": "main", "index": 0 } ] ] },
+    "IF LinkedIn Pending": { "main": [ [ { "node": "LI Post via Zapier", "type": "main", "index": 0 } ] ] },
+    "LI Post via Zapier": { "main": [ [ { "node": "Mark LI Published", "type": "main", "index": 0 } ] ] },
     "Mark LI Published": { "main": [ [ { "node": "Merge (Wait For All 3)", "type": "main", "index": 2 } ] ] },
     "Merge (Wait For All 3)": { "main": [ [ { "node": "Save Published Flags", "type": "main", "index": 0 } ] ] }
   },

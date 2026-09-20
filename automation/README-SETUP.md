@@ -53,14 +53,20 @@ access:
 |---|---|---|
 | Meta System User token (Instagram) | IG Create Container, IG Publish | `SOCIAL_AUTOMATION.md` Section 6a |
 | Meta Page Access Token (Facebook) | FB Publish Photo | `SOCIAL_AUTOMATION.md` Section 6b |
-| LinkedIn OAuth2 | LI Init Upload, LI Upload Binary, LI Publish Post | `SOCIAL_AUTOMATION.md` Section 6c |
 | Supabase (or Imgur/Airtable) key | Upload to Public Host | `SOCIAL_AUTOMATION.md` Section 4 |
 | WhatsApp Business token | Fetch WhatsApp (Graph API) | `SOCIAL_AUTOMATION.md` Section 5 |
 
+LinkedIn needs **no n8n credential** — its Community Management API
+request was denied (identity vetting, see `ACCOUNT_SETUP.md`), so the
+`LI Post via Zapier` node instead calls a Zapier webhook that posts on
+LinkedIn's behalf using Zapier's own already-approved connection
+(`SOCIAL_AUTOMATION.md` Section 6c).
+
 In n8n: open each HTTP Request node listed above → **Credential** dropdown →
 create new → paste the token. Then replace the placeholders in each node's
-URL/body (`<PHONE_NUMBER_ID>`, `<IG_USER_ID>`, `<PAGE_ID>`, `<ORG_ID>`,
-`<PROJECT>`, `<FILENAME>`) with this business's real IDs.
+URL/body (`<PHONE_NUMBER_ID>`, `<IG_USER_ID>`, `<PROJECT>`, `<FILENAME>`,
+`<ZAPIER_WEBHOOK_URL>`) with this business's real values — `<PAGE_ID>` and
+`<ORG_ID>` are already filled in.
 
 ## 6. Test before enabling the schedule
 
@@ -79,6 +85,10 @@ machine (wrong `n8n` binary path is the usual culprit).
 
 ## Ongoing
 
-- LinkedIn's access token expires roughly every 60 days — re-run the OAuth
-  flow before then (`SOCIAL_AUTOMATION.md` Section 6c).
-- Everything else (Meta tokens) is permanent and needs no renewal.
+- Meta tokens (Instagram, Facebook) are permanent and need no renewal.
+- LinkedIn posting runs through the Zapier webhook, not a token n8n
+  manages — nothing to renew there either, as long as the Zap's own
+  LinkedIn connection stays authorized on Zapier's side.
+- If the identity vetting appeal later succeeds and the raw LinkedIn API
+  path is restored (`SOCIAL_AUTOMATION.md` Section 6c-alt), its access
+  token expires roughly every 60 days — re-run the OAuth flow before then.
