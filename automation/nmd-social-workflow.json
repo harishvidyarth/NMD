@@ -145,7 +145,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "https://graph.facebook.com/v21.0/<PAGE_ID>/photos",
+        "url": "https://graph.facebook.com/v21.0/1270555172814132/photos",
         "sendBody": true,
         "bodyParameters": { "parameters": [
           { "name": "url", "value": "={{ $json.publicUrl }}" },

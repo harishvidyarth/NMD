@@ -191,6 +191,12 @@ receive messages sent to a WhatsApp Business number you control. Workflow: you
 (or whoever curates content) forward the image and caption to that business
 number; n8n pulls it.
 
+> **Already have the WhatsApp Business app on a phone?** The steps below
+> assume a number being registered fresh. If you're bringing an *existing*
+> Business app number into the Cloud API instead, use
+> `WHATSAPP_SETUP.md` — the migration/coexistence path is different from a
+> from-scratch registration.
+
 Setup:
 1. In the Meta Developer Console, create an app, add the **WhatsApp** product,
    and get a **Business phone number ID** and a **permanent System User token**.
