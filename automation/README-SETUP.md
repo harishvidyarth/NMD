@@ -54,7 +54,7 @@ access:
 | Meta System User token (Instagram) | IG Create Container, IG Publish | `SOCIAL_AUTOMATION.md` Section 6a |
 | Meta Page Access Token (Facebook) | FB Publish Photo | `SOCIAL_AUTOMATION.md` Section 6b |
 | Supabase (or Imgur/Airtable) key | Upload to Public Host | `SOCIAL_AUTOMATION.md` Section 4 |
-| WhatsApp Business token | Fetch WhatsApp (Graph API) | `SOCIAL_AUTOMATION.md` Section 5 |
+| WhatsApp Business token | Fetch WhatsApp (Graph API), Get Media URL, Download Media Binary | `SOCIAL_AUTOMATION.md` Section 5 |
 
 LinkedIn needs **no n8n credential** — its Community Management API
 request was denied (identity vetting, see `ACCOUNT_SETUP.md`), so the

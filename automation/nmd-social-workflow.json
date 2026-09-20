@@ -58,26 +58,102 @@
     },
     {
       "parameters": {
-        "jsCode": "// Per-post dedup: create a per-platform entry for any post not seen before.\nconst store = $getWorkflowStaticData('global');\nstore.published = store.published || {};\nconst out = [];\nfor (const item of $input.all()) {\n  const id = item.json.id || item.json.imageUrl;\n  if (!id) continue;\n  if (!store.published[id]) {\n    store.published[id] = { instagram: false, facebook: false, linkedin: false };\n  }\n  out.push({ json: { ...item.json, dedupId: id } });\n}\nreturn out;"
+        "jsCode": "// Fetch WhatsApp only lists raw messages; narrow to image-type messages that carry a non-empty\n// caption, and pull out just the fields the rest of the media-fetch chain needs.\nconst out = [];\nfor (const item of $input.all()) {\n  const msg = item.json;\n  if (msg.type !== 'image') continue;\n  const caption = (msg.image && msg.image.caption) || msg.caption;\n  if (!caption) continue;\n  const mediaId = msg.image && msg.image.id;\n  if (!mediaId) continue;\n  out.push({ json: { id: msg.id, mediaId, caption } });\n}\nreturn out;"
       },
-      "id": "dedup",
-      "name": "Dedup Check",
+      "id": "filter-images",
+      "name": "Filter Image Messages",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [ 680, 160 ]
     },
     {
       "parameters": {
+        "method": "GET",
+        "url": "={{ 'https://graph.facebook.com/v21.0/' + $json.mediaId + '/' }}",
+        "options": {}
+      },
+      "id": "get-media-url",
+      "name": "Get Media URL",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ 920, 160 ],
+      "notes": "Resolves the temporary media URL + mime_type for the media ID from Filter Image Messages. Attach the same WhatsApp Business token credential as Fetch WhatsApp (Graph API)."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Response from Get Media URL replaced item.json (its own 'id' field is the media ID again,\n// echoed back by the API -- not the WhatsApp message ID), so pull id/mediaId/caption back from\n// the pre-call state and keep url/mime_type from this call.\nconst upstream = $('Filter Image Messages').all();\nreturn $input.all().map((item, i) => ({ json: { ...upstream[i].json, mediaUrl: item.json.url, mimeType: item.json.mime_type } }));"
+      },
+      "id": "reattach-media-url",
+      "name": "Reattach Media URL Fields",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [ 1160, 160 ]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $json.mediaUrl }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file",
+              "outputPropertyName": "data"
+            }
+          }
+        }
+      },
+      "id": "download-media",
+      "name": "Download Media Binary",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ 1400, 160 ],
+      "notes": "Downloads the raw image bytes from the temporary WhatsApp media URL. Attach the same WhatsApp Business token credential as Fetch WhatsApp (Graph API) -- WhatsApp's media URLs require the Bearer token on the download call too, not just the metadata lookup. UNVERIFIED: the exact typeVersion-4.2 param path for a binary/file response (options.response.response.responseFormat / outputPropertyName, output binary property 'data') is based on n8n's documented schema, not tested against a live instance -- double check in the n8n UI after import."
+    },
+    {
+      "parameters": {
+        "jsCode": "// A binary/file HTTP response may not carry the incoming JSON forward, so pull\n// id/mediaId/caption/mimeType back from the pre-call state and keep the binary data attached.\nconst upstream = $('Reattach Media URL Fields').all();\nreturn $input.all().map((item, i) => ({ json: { ...upstream[i].json }, binary: item.binary }));"
+      },
+      "id": "reattach-media-binary",
+      "name": "Reattach Fields After Download",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [ 1640, 160 ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Per-post dedup: create a per-platform entry for any post not seen before.\nconst store = $getWorkflowStaticData('global');\nstore.published = store.published || {};\nconst out = [];\nfor (const item of $input.all()) {\n  const id = item.json.id || item.json.imageUrl;\n  if (!id) continue;\n  if (!store.published[id]) {\n    store.published[id] = { instagram: false, facebook: false, linkedin: false };\n  }\n  out.push({ json: { ...item.json, dedupId: id } });\n}\nreturn out;"
+      },
+      "id": "dedup",
+      "name": "Dedup Check",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [ 1880, 160 ]
+    },
+    {
+      "parameters": {
         "method": "POST",
         "url": "={{ 'https://rqdieyainwiyjupgjcsd.supabase.co/storage/v1/object/nmd-social/' + $json.dedupId + '.jpg' }}",
+        "sendBody": true,
+        "contentType": "binaryData",
+        "inputDataFieldName": "data",
         "options": {}
       },
       "id": "host",
       "name": "Upload to Public Host",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [ 920, 160 ],
-      "notes": "Upload the media binary; use the returned public object URL as publicUrl below."
+      "position": [ 2120, 160 ],
+      "notes": "Uploads the media binary (the 'data' binary property attached by Reattach Fields After Download) to Supabase Storage's write endpoint. Its JSON response (e.g. {\"Key\": \"nmd-social/xxx.jpg\"}) does not contain a public URL -- see Attach Public URL next, which independently builds the public-read URL from the same dedupId filename. Attach your Supabase key credential here. UNVERIFIED: confirm 'contentType: binaryData' + 'inputDataFieldName: data' are the correct typeVersion-4.2 param keys for sending a binary body in the n8n UI after import."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Response from Upload to Public Host replaced item.json (same bug class already fixed once\n// before for the LinkedIn publish node -- see the comment in Mark LI Published), so pull\n// dedupId/caption back from the pre-call state and independently construct the public-read URL.\n// Note the path prefix here is /object/public/nmd-social/... (with /public/), which differs from\n// the write URL on Upload to Public Host (/object/nmd-social/..., no /public/) -- Supabase Storage\n// uses different prefixes for write vs. public-read, but both must agree on the dedupId filename.\nconst upstream = $('Dedup Check').all();\nreturn $input.all().map((item, i) => {\n  const src = upstream[i].json;\n  return { json: { ...src, publicUrl: `https://rqdieyainwiyjupgjcsd.supabase.co/storage/v1/object/public/nmd-social/${src.dedupId}.jpg` } };\n});"
+      },
+      "id": "attach-public-url",
+      "name": "Attach Public URL",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [ 2360, 160 ]
     },
     {
       "parameters": {
@@ -87,7 +163,7 @@
       "name": "IF Instagram Pending",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [ 1160, -80 ]
+      "position": [ 2600, -80 ]
     },
     {
       "parameters": {
@@ -104,7 +180,7 @@
       "name": "IG Create Container",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [ 1400, -80 ],
+      "position": [ 2840, -80 ],
       "notes": "Attach Instagram System User token credential."
     },
     {
@@ -121,7 +197,7 @@
       "name": "IG Publish",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [ 1640, -80 ]
+      "position": [ 3080, -80 ]
     },
     {
       "parameters": {
@@ -131,7 +207,7 @@
       "name": "Mark IG Published",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [ 1880, -80 ]
+      "position": [ 3320, -80 ]
     },
     {
       "parameters": {
@@ -141,7 +217,7 @@
       "name": "IF Facebook Pending",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [ 1160, 160 ]
+      "position": [ 2600, 160 ]
     },
     {
       "parameters": {
@@ -158,7 +234,7 @@
       "name": "FB Publish Photo",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [ 1400, 160 ],
+      "position": [ 2840, 160 ],
       "notes": "Attach Facebook Page Access Token credential (see Section 6b)."
     },
     {
@@ -169,7 +245,7 @@
       "name": "Mark FB Published",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [ 1640, 160 ]
+      "position": [ 3080, 160 ]
     },
     {
       "parameters": {
@@ -179,7 +255,7 @@
       "name": "IF LinkedIn Pending",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [ 1160, 400 ]
+      "position": [ 2600, 400 ]
     },
     {
       "parameters": {
@@ -194,7 +270,7 @@
       "name": "LI Post via Zapier",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [ 1400, 400 ],
+      "position": [ 2840, 400 ],
       "notes": "Paste your Zapier 'Catch Hook' webhook URL. No LinkedIn credential needed here — the Zap's own LinkedIn Pages connection (authorized once via Zapier's UI as page admin) does the posting, bypassing LinkedIn Developer Portal vetting entirely. Zap: Webhooks by Zapier (trigger) -> LinkedIn Pages: Share an Update (action), mapping caption + publicUrl."
     },
     {
@@ -205,7 +281,7 @@
       "name": "Mark LI Published",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [ 2120, 400 ]
+      "position": [ 3560, 400 ]
     },
     {
       "parameters": {
@@ -218,7 +294,7 @@
       "name": "Merge (Wait For All 3)",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
-      "position": [ 2360, 160 ]
+      "position": [ 3800, 160 ]
     },
     {
       "parameters": {
@@ -228,7 +304,7 @@
       "name": "Save Published Flags",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [ 2600, 160 ]
+      "position": [ 4040, 160 ]
     }
   ],
   "connections": {
@@ -236,9 +312,15 @@
     "Manual Trigger": { "main": [ [ { "node": "Normalize Input", "type": "main", "index": 0 } ] ] },
     "Webhook Force Sync": { "main": [ [ { "node": "Normalize Input", "type": "main", "index": 0 } ] ] },
     "Normalize Input": { "main": [ [ { "node": "Fetch WhatsApp (Graph API)", "type": "main", "index": 0 } ] ] },
-    "Fetch WhatsApp (Graph API)": { "main": [ [ { "node": "Dedup Check", "type": "main", "index": 0 } ] ] },
+    "Fetch WhatsApp (Graph API)": { "main": [ [ { "node": "Filter Image Messages", "type": "main", "index": 0 } ] ] },
+    "Filter Image Messages": { "main": [ [ { "node": "Get Media URL", "type": "main", "index": 0 } ] ] },
+    "Get Media URL": { "main": [ [ { "node": "Reattach Media URL Fields", "type": "main", "index": 0 } ] ] },
+    "Reattach Media URL Fields": { "main": [ [ { "node": "Download Media Binary", "type": "main", "index": 0 } ] ] },
+    "Download Media Binary": { "main": [ [ { "node": "Reattach Fields After Download", "type": "main", "index": 0 } ] ] },
+    "Reattach Fields After Download": { "main": [ [ { "node": "Dedup Check", "type": "main", "index": 0 } ] ] },
     "Dedup Check": { "main": [ [ { "node": "Upload to Public Host", "type": "main", "index": 0 } ] ] },
-    "Upload to Public Host": { "main": [ [
+    "Upload to Public Host": { "main": [ [ { "node": "Attach Public URL", "type": "main", "index": 0 } ] ] },
+    "Attach Public URL": { "main": [ [
       { "node": "IF Instagram Pending", "type": "main", "index": 0 },
       { "node": "IF Facebook Pending", "type": "main", "index": 0 },
       { "node": "IF LinkedIn Pending", "type": "main", "index": 0 }

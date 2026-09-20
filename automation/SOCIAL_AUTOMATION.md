@@ -168,7 +168,21 @@ None of the Instagram, Facebook, or LinkedIn publish APIs can read a local
 file or a private WhatsApp media binary — each needs a **public URL** (or,
 for LinkedIn, a direct binary upload — see Section 6c) you give it. So the
 flow pushes the raw media to a free public host once and reuses that same
-public URL/binary for all three platform branches. Free options:
+public URL for all three platform branches.
+
+In the workflow JSON, "Upload to Public Host" POSTs the binary attached by
+the WhatsApp media-fetch chain (Section 5) to Supabase Storage's write
+endpoint (`/storage/v1/object/nmd-social/<dedupId>.jpg`). Supabase's write
+response is just `{"Key": "nmd-social/xxx.jpg"}` — no public URL — and, per
+the same "HTTP response overwrites item.json" quirk noted for the LinkedIn
+publish node in Section 6c, that response also wipes out the item's
+`dedupId`/`caption`. A small Code node right after it, "Attach Public URL",
+pulls `dedupId`/`caption` back from "Dedup Check" and builds the public-read
+URL itself: `/storage/v1/object/public/nmd-social/<dedupId>.jpg` — note the
+extra `/public/` segment, which is Supabase's read-path prefix and differs
+from the write path above. Both must use the same `dedupId`-based filename,
+which they do since both expressions derive it from the same field. Free
+options for the host itself:
 
 - **Supabase Storage** (recommended): create a free project, a public bucket
   (e.g. `nmd-social`), upload via the Storage REST API with your key, then
@@ -208,9 +222,29 @@ Setup:
    get the binary.
 4. Pass the binary to the media-host node (Section 4) and the caption forward.
 
-n8n nodes: HTTP Request (list/download messages and media), then IF
-(type is image), then media host, then the three publish branches. There is
-also a native WhatsApp Business Cloud node for sending; for *reading*, the
+This is exactly what the workflow JSON's media-fetch chain does, between
+"Fetch WhatsApp (Graph API)" and "Dedup Check":
+
+- **Filter Image Messages** (Code) — narrows the raw message list down to
+  `type === 'image'` entries that carry a non-empty caption, and extracts the
+  WhatsApp message `id` (used later as the dedup key), the media `id`, and
+  the `caption`.
+- **Get Media URL** (HTTP Request) — `GET
+  https://graph.facebook.com/v21.0/{mediaId}/`, resolving the temporary
+  `url` + `mime_type` for that media ID.
+- **Reattach Media URL Fields** (Code) — the call above overwrites
+  `item.json` with the media metadata response (whose own `id` field is the
+  media ID again, not the message ID), so this pulls `id`/`mediaId`/`caption`
+  back from "Filter Image Messages" and keeps `url`/`mime_type` from the call.
+- **Download Media Binary** (HTTP Request) — `GET` the resolved `url` with
+  the same Bearer token, response format set to return a file/binary.
+- **Reattach Fields After Download** (Code) — binary/file responses can drop
+  the incoming JSON, so this pulls the message fields back again and keeps
+  the binary attached under the `data` property.
+
+n8n nodes: HTTP Request (list/download messages and media), Code (filter +
+field reattachment), then media host, then the three publish branches. There
+is also a native WhatsApp Business Cloud node for sending; for *reading*, the
 HTTP Request plus Graph API calls above are the reliable path.
 
 ### Approach B — Public WhatsApp Channel web scraper
@@ -362,8 +396,10 @@ After importing:
 2. Replace every remaining `<PLACEHOLDER>` (`<PHONE_NUMBER_ID>`,
    `<IG_USER_ID>`, `<PROJECT>`, `<FILENAME>`, `<ZAPIER_WEBHOOK_URL>`).
    `<PAGE_ID>` and `<ORG_ID>` are already filled in.
-3. In "Fetch WhatsApp", add filtering so only image messages with a caption
-   proceed (an IF node or a few lines in the Code node).
+3. The "Filter Image Messages" → "Get Media URL" → "Reattach Media URL
+   Fields" → "Download Media Binary" → "Reattach Fields After Download"
+   chain (Section 5) already filters to image messages with a caption and
+   fetches the binary — nothing to add here beyond attaching credentials.
 4. Test with the **Manual Trigger** first, using one known post, before
    enabling the schedule.
 5. Bookmark `http://localhost:5678/webhook/nmd-sync` for on-demand syncs.
