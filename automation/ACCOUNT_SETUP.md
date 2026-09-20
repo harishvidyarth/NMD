@@ -16,11 +16,12 @@ needs business registration documents that aren't on hand yet — see the
 for the appeal form (`linkedin.com/help/linkedin/ask/dsapi`, Form Type
 "Vetting Appeal") if/when those documents are available.
 
-**Until then, the pipeline posts to LinkedIn via Zapier instead** — see
-"Zapier route" below. This sidesteps LinkedIn Developer Portal vetting
-entirely: Zapier holds its own already-approved LinkedIn Pages
-integration, and posting only needs OAuth login as page admin through
-Zapier's UI, not a self-owned, vetted developer app.
+**Until then, the pipeline posts to LinkedIn via Make.com instead** — see
+"Make.com route" below. This sidesteps LinkedIn Developer Portal vetting
+entirely: Make holds its own already-approved LinkedIn Pages integration,
+and posting only needs OAuth login as page admin through Make's UI, not a
+self-owned, vetted developer app. (Zapier was tried first, but its
+Webhooks module is Premium/paid-plan-only — Make's is free.)
 
 These steps need a human logged into LinkedIn with business verification —
 I can't perform them; this is a checklist for whoever does.
@@ -52,7 +53,7 @@ If someone else at NMD needs access: Page → **Admin tools → Manage admins**
 ## 3-6. Superseded — raw LinkedIn API path (kept for future reference)
 
 The steps below are what you'd do if the Community Management API vetting
-appeal (see top of doc) later succeeds. Not needed for the current Zapier
+appeal (see top of doc) later succeeds. Not needed for the current Make.com
 route.
 
 1. [developer.linkedin.com](https://developer.linkedin.com/) → **My apps**
@@ -68,29 +69,33 @@ route.
 4. Tokens expire ~60 days — no permanent option like Meta's System User
    tokens; set a calendar reminder to re-run OAuth before expiry.
 5. Restore the three-node LinkedIn HTTP Request chain (Init Upload / Upload
-   Binary / Publish Post — see git history prior to the Zapier switch for
-   the exact node JSON) in place of the single "LI Post via Zapier" node.
+   Binary / Publish Post — see git history prior to the Make.com switch for
+   the exact node JSON) in place of the single "LI Post via Make" node.
 
-## Zapier route (current)
+## Make.com route (current)
 
-1. Create a free Zapier account (or use an existing one).
-2. Create a Zap: trigger **Webhooks by Zapier → Catch Hook**. Copy the
-   generated webhook URL.
-3. Action: **LinkedIn Pages → Share an Update**. Authorize Zapier against
-   LinkedIn as a Company Page admin (OAuth login through Zapier's UI —
-   no LinkedIn Developer Portal, no vetting). Map the update text to the
-   webhook's `caption` field and the image to the webhook's `publicUrl`
-   field.
-4. Turn the Zap on.
-5. In `nmd-social-workflow.json`, paste the webhook URL from Step 2 into
-   the `<ZAPIER_WEBHOOK_URL>` placeholder on the **LI Post via Zapier**
-   node. No LinkedIn credential needs attaching in n8n for this branch.
-6. Zapier free tier caps at 100 tasks/month — fine for a small business
-   posting cadence; upgrade only if volume grows.
+1. Sign into (or create) a Make.com account — free plan, no card needed.
+2. Create a scenario: trigger **Webhooks → Custom webhook**. Name it, click
+   "Create a webhook", copy the generated URL (already done — see webhook
+   URL below).
+3. Action module: **LinkedIn Pages → Create a Post** (exact label may vary
+   by Make version). Authorize Make against LinkedIn as Company Page admin
+   (OAuth login through Make's UI — no LinkedIn Developer Portal, no
+   vetting). Map the post text to the webhook's `caption` field and the
+   image to the webhook's `publicUrl` field.
+4. Turn the scenario on.
+5. Webhook URL (already filled into `nmd-social-workflow.json`'s
+   **LI Post via Make** node):
+   `https://hook.eu1.make.com/jurnq23dha3fheesxy8ramfsb03om0vn`
+6. Make's free plan: 1,000 operations/month, Webhooks module included free
+   (unlike Zapier, which gates "Webhooks by Zapier" behind a paid plan) —
+   comfortably covers a small business's posting cadence at 2 ops/post
+   (webhook + LinkedIn action).
 
 ## Once this is done
 
-Paste the Zapier webhook URL into the `<ZAPIER_WEBHOOK_URL>` placeholder on
-the "LI Post via Zapier" node in `nmd-social-workflow.json` — then the
-LinkedIn branch is live alongside the already-working Instagram/Facebook
-branches, with no LinkedIn API vetting dependency.
+The webhook URL is already filled into the "LI Post via Make" node in
+`nmd-social-workflow.json` — remaining step is adding the LinkedIn Pages
+action module in the Make scenario (step 3 above) and authorizing it, then
+the LinkedIn branch is live alongside the already-working Instagram/
+Facebook branches, with no LinkedIn API vetting dependency.

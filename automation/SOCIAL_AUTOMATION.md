@@ -311,7 +311,7 @@ token — generate it from the same Meta Business Settings:
 n8n node: single HTTP Request node, `POST`, with the Page Access Token
 stored as an n8n Credential.
 
-### 6c. LinkedIn Company Page — via Zapier (current implementation)
+### 6c. LinkedIn Company Page — via Make.com (current implementation)
 
 The NMD Social Automation LinkedIn Developer app (Client ID
 `865vp2opy4mm6c`) requested the Community Management API and got
@@ -321,30 +321,33 @@ needs registration documents not currently on hand (see `ACCOUNT_SETUP.md`
 for the appeal path).
 
 So the pipeline's LinkedIn branch is a single HTTP Request node
-(`LI Post via Zapier`) that POSTs `{ publicUrl, caption, dedupId }` as JSON
-to a Zapier webhook — no LinkedIn credential attached in n8n at all:
+(`LI Post via Make`) that POSTs `{ publicUrl, caption, dedupId }` as JSON
+to a Make.com webhook — no LinkedIn credential attached in n8n at all:
 
 ```
-POST <ZAPIER_WEBHOOK_URL>
+POST https://hook.eu1.make.com/jurnq23dha3fheesxy8ramfsb03om0vn
 Body: { "publicUrl": "<image url>", "caption": "<caption text>", "dedupId": "<id>" }
 ```
 
-On the Zapier side: a Zap with trigger **Webhooks by Zapier → Catch Hook**
-feeding action **LinkedIn Pages → Share an Update**, mapping `caption` and
-`publicUrl` from the webhook payload. The Zap's LinkedIn connection is
-authorized once via Zapier's own UI (OAuth login as Company Page admin) —
-this uses Zapier's already-approved LinkedIn Pages integration, so it
-completely bypasses LinkedIn Developer Portal vetting. Free tier (100
-tasks/month) is enough for this posting cadence.
+On the Make side: a scenario with trigger **Webhooks → Custom webhook**
+feeding action **LinkedIn Pages → Create a Post**, mapping `caption` and
+`publicUrl` from the webhook payload. The scenario's LinkedIn connection is
+authorized once via Make's own UI (OAuth login as Company Page admin) —
+this uses Make's already-approved LinkedIn Pages integration, so it
+completely bypasses LinkedIn Developer Portal vetting. Free tier (1,000
+operations/month) is enough for this posting cadence — and unlike Zapier
+(which was tried first), Make doesn't gate the Webhooks module behind a
+paid plan.
 
-Setup, one time: create the Zap as above, paste its webhook URL into the
-`<ZAPIER_WEBHOOK_URL>` placeholder on the `LI Post via Zapier` node.
+Setup, one time: create the scenario as above (webhook already created —
+URL above), add the LinkedIn Pages action module, authorize it, turn the
+scenario on.
 
 ### 6c-alt. Raw LinkedIn API path (fallback, once vetting appeal succeeds)
 
 If the Community Management API vetting appeal (see `ACCOUNT_SETUP.md`)
 succeeds later, LinkedIn's own image posting is a three-call sequence that
-can replace the Zapier node:
+can replace the Make node:
 
 1. **Initialize upload:**
    ```
@@ -392,10 +395,10 @@ After importing:
 1. Open each HTTP Request node and attach the right **Credential** (Meta
    System User token, Meta Page token, Supabase key). Never hardcode tokens
    in URLs. The LinkedIn branch needs no n8n credential — it posts through
-   a Zapier webhook instead (see Section 6c).
+   a Make.com webhook instead (see Section 6c).
 2. Replace every remaining `<PLACEHOLDER>` (`<PHONE_NUMBER_ID>`,
-   `<IG_USER_ID>`, `<PROJECT>`, `<FILENAME>`, `<ZAPIER_WEBHOOK_URL>`).
-   `<PAGE_ID>` and `<ORG_ID>` are already filled in.
+   `<IG_USER_ID>`, `<PROJECT>`, `<FILENAME>`). `<PAGE_ID>`, `<ORG_ID>`, and
+   the Make webhook URL are already filled in.
 3. The "Filter Image Messages" → "Get Media URL" → "Reattach Media URL
    Fields" → "Download Media Binary" → "Reattach Fields After Download"
    chain (Section 5) already filters to image messages with a caption and

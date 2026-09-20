@@ -260,22 +260,22 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "<ZAPIER_WEBHOOK_URL>",
+        "url": "https://hook.eu1.make.com/jurnq23dha3fheesxy8ramfsb03om0vn",
         "sendBody": true,
         "jsonParameters": true,
         "bodyParametersJson": "={{ { publicUrl: $json.publicUrl, caption: $json.caption, dedupId: $json.dedupId } }}",
         "options": {}
       },
-      "id": "li-zapier",
-      "name": "LI Post via Zapier",
+      "id": "li-make",
+      "name": "LI Post via Make",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [ 2840, 400 ],
-      "notes": "Paste your Zapier 'Catch Hook' webhook URL. No LinkedIn credential needed here — the Zap's own LinkedIn Pages connection (authorized once via Zapier's UI as page admin) does the posting, bypassing LinkedIn Developer Portal vetting entirely. Zap: Webhooks by Zapier (trigger) -> LinkedIn Pages: Share an Update (action), mapping caption + publicUrl."
+      "notes": "Make.com webhook (scenario 'NMD LinkedIn Post', eu1). No LinkedIn credential needed here — the scenario's own LinkedIn Pages connection (authorized once via Make's UI as page admin) does the posting, bypassing LinkedIn Developer Portal vetting entirely and staying on Make's free tier (Webhooks module isn't premium-gated there, unlike Zapier). Scenario: Webhooks (Custom webhook trigger) -> LinkedIn Pages: Create a Post (action), mapping caption + publicUrl."
     },
     {
       "parameters": {
-        "jsCode": "// Response from the Zapier webhook replaced item.json, so pull dedupId/caption back from the pre-call state and add the success flag.\nconst upstream = $('IF LinkedIn Pending').all();\nreturn $input.all().map((item, i) => ({ json: { ...upstream[i].json, liPublished: true } }));"
+        "jsCode": "// Response from the Make webhook replaced item.json, so pull dedupId/caption back from the pre-call state and add the success flag.\nconst upstream = $('IF LinkedIn Pending').all();\nreturn $input.all().map((item, i) => ({ json: { ...upstream[i].json, liPublished: true } }));"
       },
       "id": "li-mark",
       "name": "Mark LI Published",
@@ -332,8 +332,8 @@
     "IF Facebook Pending": { "main": [ [ { "node": "FB Publish Photo", "type": "main", "index": 0 } ] ] },
     "FB Publish Photo": { "main": [ [ { "node": "Mark FB Published", "type": "main", "index": 0 } ] ] },
     "Mark FB Published": { "main": [ [ { "node": "Merge (Wait For All 3)", "type": "main", "index": 1 } ] ] },
-    "IF LinkedIn Pending": { "main": [ [ { "node": "LI Post via Zapier", "type": "main", "index": 0 } ] ] },
-    "LI Post via Zapier": { "main": [ [ { "node": "Mark LI Published", "type": "main", "index": 0 } ] ] },
+    "IF LinkedIn Pending": { "main": [ [ { "node": "LI Post via Make", "type": "main", "index": 0 } ] ] },
+    "LI Post via Make": { "main": [ [ { "node": "Mark LI Published", "type": "main", "index": 0 } ] ] },
     "Mark LI Published": { "main": [ [ { "node": "Merge (Wait For All 3)", "type": "main", "index": 2 } ] ] },
     "Merge (Wait For All 3)": { "main": [ [ { "node": "Save Published Flags", "type": "main", "index": 0 } ] ] }
   },

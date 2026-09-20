@@ -58,15 +58,16 @@ access:
 
 LinkedIn needs **no n8n credential** — its Community Management API
 request was denied (identity vetting, see `ACCOUNT_SETUP.md`), so the
-`LI Post via Zapier` node instead calls a Zapier webhook that posts on
-LinkedIn's behalf using Zapier's own already-approved connection
-(`SOCIAL_AUTOMATION.md` Section 6c).
+`LI Post via Make` node instead calls a Make.com webhook that posts on
+LinkedIn's behalf using Make's own already-approved connection
+(`SOCIAL_AUTOMATION.md` Section 6c). Make was chosen over Zapier because
+Zapier gates its Webhooks module behind a paid plan; Make's is free.
 
 In n8n: open each HTTP Request node listed above → **Credential** dropdown →
-create new → paste the token. Then replace the placeholders in each node's
-URL/body (`<PHONE_NUMBER_ID>`, `<IG_USER_ID>`, `<PROJECT>`, `<FILENAME>`,
-`<ZAPIER_WEBHOOK_URL>`) with this business's real values — `<PAGE_ID>` and
-`<ORG_ID>` are already filled in.
+create new → paste the token. Then replace the remaining placeholders in
+each node's URL/body (`<PHONE_NUMBER_ID>`, `<IG_USER_ID>`, `<PROJECT>`,
+`<FILENAME>`) with this business's real values — `<PAGE_ID>`, `<ORG_ID>`,
+and the Make webhook URL are already filled in.
 
 ## 6. Test before enabling the schedule
 
@@ -86,9 +87,9 @@ machine (wrong `n8n` binary path is the usual culprit).
 ## Ongoing
 
 - Meta tokens (Instagram, Facebook) are permanent and need no renewal.
-- LinkedIn posting runs through the Zapier webhook, not a token n8n
-  manages — nothing to renew there either, as long as the Zap's own
-  LinkedIn connection stays authorized on Zapier's side.
+- LinkedIn posting runs through the Make.com webhook, not a token n8n
+  manages — nothing to renew there either, as long as the scenario's own
+  LinkedIn connection stays authorized on Make's side.
 - If the identity vetting appeal later succeeds and the raw LinkedIn API
   path is restored (`SOCIAL_AUTOMATION.md` Section 6c-alt), its access
   token expires roughly every 60 days — re-run the OAuth flow before then.
